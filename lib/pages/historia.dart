@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iuapp/widgets.dart';
+import '../constants/widgets.dart';
 import '../layout/layout.dart';
-import '../theme.dart';
+import '../constants/theme.dart';
 
 class HistoriaPage extends StatefulWidget {
   const HistoriaPage({super.key});

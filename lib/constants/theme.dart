@@ -6,7 +6,7 @@ class AppColors {
 
   //degradado de fondo
   static const Gradient backroundGradient = LinearGradient(
-    colors:[Color(0xFF0F1657), Color(0xFF000C3B)],
+    colors:[Color(0xFF3139A8), Color(0xFF0062C7), Color(0xFF552394), Color(0xFFA339B5), Color(0xFF77289D),],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
@@ -28,6 +28,13 @@ class AppColors {
   // Degradado para botones secundarios
   static const Gradient secondaryButtonGradient = LinearGradient(
     colors: [Color(0xFF6DCFFA), Color(0xFF2737CF)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  // Degradado para botones terceros
+  static const Gradient tercerButtonGradient = LinearGradient(
+    colors: [Color(0xFF032D60), Color(0xFF0A1167), Color(0xFF010317)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );

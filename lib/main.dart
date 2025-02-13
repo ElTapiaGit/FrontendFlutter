@@ -5,6 +5,8 @@ import 'pages/login/login_screen.dart';
 import 'pages/menu.dart';
 import 'pages/historia.dart';
 import 'pages/level_activity.dart';
+import 'pages/diagnostico.dart';
+import 'pages/plan_aliment.dart';
 import 'pages/acerca_de.dart';
 import 'pages/personal_plan.dart';
 import 'pages/rutina_ejercicio.dart';
@@ -34,6 +36,8 @@ class MainApp extends StatelessWidget {
         '/Nivel_Actividad': (context) => const ActivityPage(),
         '/sedentario': (context) => const SedentarioPage(),
         '/Notificaciones': (context) => const AcercaDePage(),
+        '/diagnostico': (context) => const DiagnosticoPage(),
+        '/plan_alimentacion': (context) => const PlanAlimentoPage(),
         '/plan_personalizado': (context) => const PlanPersonalPage(),
         '/rutina_ejercicio': (context) => const RutinasEjerciciosPage(),
         '/objetivos': (context) => const ObjetivosPage(),

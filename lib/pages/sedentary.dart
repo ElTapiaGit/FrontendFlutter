@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iuapp/layout/sidebar.dart';
-import '../theme.dart';
-import '../widgets.dart';
+import '../constants/theme.dart';
+import '../constants/widgets.dart';
 
 
 class SedentarioPage extends StatelessWidget {

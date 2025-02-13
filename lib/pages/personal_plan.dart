@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../layout/sidebar.dart';
-import '../theme.dart';
+import '../constants/theme.dart';
+import '../constants/widgets.dart';
 import 'rutina_ejercicio.dart';
+import 'package:iuapp/pages/plan_aliment.dart';
 import 'objetivos.dart';
-import  '../widgets.dart';
 
 class PlanPersonalPage extends StatelessWidget {
   const PlanPersonalPage({super.key});
@@ -53,7 +54,12 @@ class PlanPersonalPage extends StatelessWidget {
                     CategoryCard(
                       title: "PLAN DE ALIMENTACIÓN",
                       imagePath: "assets/logo.png",
-                      onTap:  () {},
+                      onTap:  () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const PlanAlimentoPage())
+                        );
+                      }
                     ),
                     CategoryCard(
                       title: "OBJETIVO",

@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import '../layout/sidebar.dart';
 import '../constants/theme.dart';
 import '../constants/widgets.dart';
-import 'masa_muscular.dart';
+import 'frutos.dart';
 
-class ObjetivosPage extends StatelessWidget {
-  const ObjetivosPage({super.key});
+
+class PlanAlimentoPage extends StatelessWidget {
+  const PlanAlimentoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Sidebar(),
+      extendBodyBehindAppBar: true, // Extiende el fondo hasta el AppBar
       appBar: AppBar(
-        title: const Text("PLAN PERSONALIZADO"),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: Container(
+        padding: EdgeInsets.only(top: 80),
         decoration: const BoxDecoration(
           gradient: AppColors.backroundGradient, // Fondo degradado
         ),
@@ -25,39 +27,43 @@ class ObjetivosPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               const Text(
-                "SELECCIONE SU OBJETIVO",
+                "PRIMERAS COMIDAS",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 0),
 
               // Tarjetas de categorías
               Expanded(
                 child: ListView(
                   children: [
                     CategoryCard(
-                      title: "DEFINICION",
-                      imagePath: "assets/logo.png",
-                      onTap: () {},
-                    ),
-                    CategoryCard(
-                      title: "MANTENIMIENTO",
-                      imagePath: "assets/logo.png",
-                      onTap: () {},
-                    ),
-                    CategoryCard(
-                      title: "AUMENTO DE MASA MUSCULAR",
+                      title: "BOWL DE AVENA CON FRUTOS ROJOS",
                       imagePath: "assets/logo.png",
                       onTap: () {
                         Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => const FrutosPage())
+                        );
+                      },
+                    ),
+                    CategoryCard(
+                      title: "PANQUEQUES CON ARANDANOS",
+                      imagePath: "assets/logo.png",
+                      onTap: () {},
+                    ),
+                    CategoryCard(
+                      title: "OMELET CON ESPINACAS Y FRESAS",
+                      imagePath: "assets/logo.png",
+                      onTap: () {
+                        /*Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const MasaMuscularPage())
-                        );
+                        );*/
                       },
                     ),
                   ],

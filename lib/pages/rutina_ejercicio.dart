@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme.dart';
+import '../constants/theme.dart';
 
 class RutinasEjerciciosPage extends StatelessWidget {
   const RutinasEjerciciosPage({super.key});

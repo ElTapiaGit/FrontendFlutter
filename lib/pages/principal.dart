@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme.dart'; //importamos colores
-import '../widgets.dart'; //importamos botones
+import '../constants/theme.dart'; //importamos colores
+import '../constants/widgets.dart'; //importamos botones
 
 class PrincipalPage extends StatelessWidget {
   const PrincipalPage({super.key});
@@ -27,7 +27,7 @@ class PrincipalPage extends StatelessWidget {
                 height: 50,
                 child: GradientButton(
                   text: "Continuar",
-                  gradient: AppColors.primaryButtonGradient,
+                  gradient: AppColors.secondaryButtonGradient,
                   onPressed: () {
                     Navigator.pushNamed(context, '/login');
                   },

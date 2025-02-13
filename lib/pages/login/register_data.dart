@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../theme.dart';
+import '../../constants/theme.dart';
 
 class RegisterDatosScreen extends StatefulWidget {
   const RegisterDatosScreen({super.key});

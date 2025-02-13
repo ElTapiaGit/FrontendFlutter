@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../theme.dart';
+import '../../constants/theme.dart';
 import '../menu.dart'; 
 import 'register_data.dart';
 
@@ -93,6 +93,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.2),
                           border: OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.email, color: Colors.white),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -117,6 +118,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.2),
                           border: OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.lock, color: Colors.white),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscureText

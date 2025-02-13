@@ -30,7 +30,50 @@ class GradientButton extends StatelessWidget {
           shadowColor: const Color(0x00F00A0A),
           padding: const EdgeInsets.all(0),
         ),
-        child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 18),),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(text, style: const TextStyle(color: Colors.white, fontSize: 18)),
+            if (icon != null) const SizedBox(width: 10), // Espaciado entre icono y texto
+            if (icon != null) // Muestra el icono si se proporciona
+              Icon(icon, color: Colors.white, size: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//boton redondeado
+class CircularButton extends StatelessWidget {
+  final String text;
+  final Gradient gradient;
+  final VoidCallback onPressed;
+
+  const CircularButton({
+    super.key,
+    required this.text,
+    required this.gradient,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: Color(0xFF2B2A6D), width: 1),
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          padding: const EdgeInsets.all(0),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 16)),
       ),
     );
   }
@@ -136,6 +179,7 @@ class CategoryCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 2, //permite que el texto se acomode en dos lines
                   ),
                 ),
                 // Imagen (alineada a la derecha)
