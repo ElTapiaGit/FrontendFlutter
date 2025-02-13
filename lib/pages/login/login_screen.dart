@@ -155,7 +155,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         ),
                         onPressed: _login,
                         child: Container(
-                          width: 200,
+                          width: 300,
                           height: 40,
                           decoration: BoxDecoration(
                             gradient: AppColors.primaryButtonGradient,
@@ -164,7 +164,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           alignment: Alignment.center,
                           child: Text(
                             'Iniciar sesión',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ),
                       ),
@@ -180,7 +180,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         onTap: _register,
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: 200),
-                          width: 200,
+                          width: 300,
                           height: 40,
                           decoration: BoxDecoration(
                             gradient: _isPressed

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:flutter/material.dart';
 import 'package:iuapp/pages/sedentary.dart';
 import 'pages/principal.dart';
@@ -43,6 +45,20 @@ class MainApp extends StatelessWidget {
         '/objetivos': (context) => const ObjetivosPage(),
         '/masa_muscular': (context) => const MasaMuscularPage(),
       },
+      navigatorObservers: [RouteObserver()], // Aquí registramos el observer
     );
+  }
+}
+
+class RouteObserver extends NavigatorObserver {
+  // Observa las rutas activas
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    super.didPush(route, previousRoute);
+  }
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    super.didPop(route, previousRoute);
   }
 }

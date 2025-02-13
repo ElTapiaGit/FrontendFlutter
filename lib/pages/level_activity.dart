@@ -28,7 +28,7 @@ class ActivityPage extends StatelessWidget {
             mainAxisSpacing: 10,//espacio vertical entre tarjetas
             children: [
               ActivityCard(
-                imagePath: 'assets/logo.png',
+                imagePath: 'assets/sedentario.png',
                 title: 'SEDENTARIO',
                 description: 'Poco o ningun ejercicio.',
                 onTap: () {
@@ -40,7 +40,7 @@ class ActivityPage extends StatelessWidget {
               ),
         
               ActivityCard(
-                imagePath: 'assets/logo.png',
+                imagePath: 'assets/sedentario.png',
                 title: 'LIGERA ACTIVIDAD',
                 description: 'Ejercicio ligero de 1-3 dias/semana.',
                 onTap: () {
@@ -49,7 +49,7 @@ class ActivityPage extends StatelessWidget {
               ),
         
               ActivityCard(
-                imagePath: 'assets/logo.png',
+                imagePath: 'assets/sedentario.png',
                 title: 'ACTIVO',
                 description: 'Ejercicio moderado de 3-5 dias/semana.',
                 onTap: () {
@@ -58,7 +58,7 @@ class ActivityPage extends StatelessWidget {
               ),
         
               ActivityCard(
-                imagePath: 'assets/logo.png',
+                imagePath: 'assets/sedentario.png',
                 title: 'ATLETA',
                 description: 'Entrenamiento intenso 6-7 dias/semana.',
                 onTap: () {

@@ -7,7 +7,7 @@ class AcercaDePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Layout(
-      child: Center(child: Text("Hola Acerca de", style: TextStyle(fontSize: 24))),
+      child: Center(child: Text("Hola Acerca de Notificaciones", style: TextStyle(fontSize: 24))),
     );
   }
 }

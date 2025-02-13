@@ -17,7 +17,6 @@ class _MasaMuscularPageState extends State<MasaMuscularPage> {
     //inicializamos el controlador para el video
     _controller = VideoPlayerController.asset('assets/gym.mp4')
       ..initialize().then((_) {
-        print("Video cargado correctamente: ${_controller.value.isInitialized}");
         setState(() {});
         //actualiza la interfaz cuando el video este listo
         _controller.setLooping(true); // Para que el video se repita

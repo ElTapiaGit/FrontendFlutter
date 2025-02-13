@@ -18,7 +18,9 @@ class PlanPersonalPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
+      extendBodyBehindAppBar: false,
       body: Container(
+        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: AppColors.backroundGradient, // Fondo degradado
         ),

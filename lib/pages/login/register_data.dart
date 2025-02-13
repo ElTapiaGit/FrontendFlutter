@@ -23,10 +23,11 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
   final TextEditingController _confirmPasswordController = TextEditingController();
 
   bool _passwordsMatch = true;
+  bool _isPasswordVisible = false;
 
   void _submitForm() {
     if (_formKey.currentState!.validate()){
-
+      //logica para enviar formulario
     }
   }
 
@@ -46,6 +47,7 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
       extendBodyBehindAppBar: true, // Para que el fondo abarque la barra
 
       body: Container(
+        height: double.infinity,
         padding: EdgeInsets.only(top: 80),
         decoration: const BoxDecoration(
           gradient: AppColors.backroundGradient,
@@ -65,49 +67,59 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                   _buildTextField(_apellidoMaController, "Apellido Materno"),
                   SizedBox(height: 20),
         
-                  DropdownButtonFormField<String>(
-                    value: _sexo,
-                    decoration: _inputDecoration("Genero"),
-                    dropdownColor: Colors.blue.shade900, // Fondo del menú desplegable
-                    style: const TextStyle(color: Colors.white),
-                    iconSize: 30,
-                    items: ["Masculino", "Femenino"].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value, style: const TextStyle(color: Colors.white70)), // Texto blanco en el menú
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      setState(() {
-                        _sexo = newValue;
-                      });
-                    },
-                    validator: (value) => value == null ? "Seleccione un genero" : null,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: DropdownButtonFormField<String>(
+                          value: _sexo,
+                          decoration: _inputDecoration("Genero"),
+                          dropdownColor: Colors.blue.shade900, // Fondo del menú desplegable
+                          style: const TextStyle(color: Colors.white),
+                          iconSize: 20,
+                          items: ["Masculino", "Femenino"].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, style: const TextStyle(color: Colors.white70)), // Texto blanco en el menú
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              _sexo = newValue;
+                            });
+                          },
+                          validator: (value) => value == null ? "Seleccione un genero" : null,
+                        ),
+                      ),
+
+                      SizedBox(width: 20),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _fechaNacimientoController,
+                          decoration: _inputDecoration("Fecha de Nacimiento").copyWith(
+                            suffixIcon: Icon(Icons.calendar_today, color: Colors.white70),
+                          ),
+                          style: const TextStyle(color: Colors.white),
+                          readOnly: true,
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime.now(),
+                            );
+                           if (pickedDate != null) {
+                              setState(() {
+                                _fechaNacimientoController.text = "${pickedDate.toLocal()}".split(' ')[0];
+                              });
+                            }
+                          },
+                            validator: (value) => value!.isEmpty ? "Seleccione una fecha" : null,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 20),
         
-                  TextFormField(
-                    controller: _fechaNacimientoController,
-                    decoration: _inputDecoration("Fecha de Nacimiento").copyWith(
-                      suffixIcon: Icon(Icons.calendar_today, color: Colors.white70),
-                    ),
-                    style: const TextStyle(color: Colors.white),
-                    readOnly: true,
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now(),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          _fechaNacimientoController.text = "${pickedDate.toLocal()}".split(' ')[0];
-                        });
-                      }
-                    },
-                    validator: (value) => value!.isEmpty ? "Seleccione una fecha" : null,
-                  ),
                   SizedBox(height: 20),
         
                   _buildTextField(_direccionController, "Dirección"),
@@ -126,8 +138,9 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                     }
                     return null;
                   }),
-                  _buildTextField(_passwordController, "Contraseña", obscureText: true, validator: (value) {
-                    if (value!.length < 4) return "Mínimo 4 caracteres";
+
+                  _buildPasswordField(_passwordController, "Contraseña", validator: (value) {
+                    if (value!.length < 4) return "La contraseña debe tener al menos 4 caracteres";
                     return null;
                   }),
         
@@ -186,7 +199,7 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
     Color borderColor = Colors.white
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
@@ -222,6 +235,59 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(color: Colors.red, width: 2), // Borde rojo en error
+      ),
+      errorStyle: TextStyle(
+      color: Colors.white, //color de los mensajes de error
+      fontSize: 14,
+    ),
+    );
+  }
+
+  // Widget para el campo de texto de Contraseña
+  Widget _buildPasswordField(TextEditingController controller, String label, {String? Function(String?)? validator,}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: TextFormField(
+        controller: controller,
+        obscureText: !_isPasswordVisible,  // Aquí controlamos la visibilidad
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.white70),
+          filled: true,
+          fillColor: Colors.transparent,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white60, width: 2),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.white, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.white, width: 2),
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(
+              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Colors.white70,
+            ),
+            onPressed: () {
+              setState(() {
+                _isPasswordVisible = !_isPasswordVisible;  // Cambiar el estado de visibilidad
+              });
+            },
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.red, width: 2), // Borde rojo en error
+          ),
+          errorStyle: TextStyle(
+            color: Colors.white, //color de los mensajes de error
+            fontSize: 14, 
+          ),
+        ),
+        style: TextStyle(color: Colors.white),
+        validator: validator,
       ),
     );
   }

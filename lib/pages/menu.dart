@@ -7,7 +7,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Layout(
-      child: Center(child: Text("Hola Menu", style: TextStyle(fontSize: 24))),
+      child: Center(child: Text("Pagina para Dashboar", style: TextStyle(fontSize: 24))),
     );
   }
 }
