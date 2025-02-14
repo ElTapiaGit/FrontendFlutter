@@ -3,7 +3,7 @@ import '../layout/sidebar.dart';
 import '../constants/theme.dart';
 import '../constants/widgets.dart';
 import 'rutina_ejercicio.dart';
-import 'package:iuapp/pages/plan_aliment.dart';
+import 'plan_aliment.dart';
 import 'objetivos.dart';
 
 class PlanPersonalPage extends StatelessWidget {

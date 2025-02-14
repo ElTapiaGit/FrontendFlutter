@@ -6,6 +6,7 @@ class Sidebar extends StatefulWidget {
   const Sidebar({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SidebarState createState() => _SidebarState();
 }
 

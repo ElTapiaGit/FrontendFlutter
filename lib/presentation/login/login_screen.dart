@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../constants/theme.dart';
-import '../menu.dart'; 
+import '../constants/theme.dart';
+import '../pages/menu.dart'; 
 import 'register_data.dart';
+import 'recover_pass.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
   @override
+  // ignore: library_private_types_in_public_api
   _ScreenLoginState createState() => _ScreenLoginState();
 }
 
@@ -36,6 +38,13 @@ class _ScreenLoginState extends State<ScreenLogin> {
         );
       }
     }
+  }
+
+  void _recover() {
+    Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const RecoverPassPage()),
+        );
   }
 
   void _register() {
@@ -169,6 +178,34 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         ),
                       ),
                       SizedBox(height: 20),
+
+                      // Botón de inicio de sesión
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ).copyWith(
+                          shadowColor: MaterialStateProperty.all(Colors.transparent),
+                        ),
+                        onPressed: _recover,
+                        child: Container(
+                          width: 300,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            gradient: AppColors.primaryButtonGradient,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Recuperar contraseña',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20,),
                       
                       // Botón de registrarse
                       GestureDetector(

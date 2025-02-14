@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iuapp/layout/sidebar.dart';
+import '../layout/sidebar.dart';
 import '../constants/theme.dart';
 import '../constants/widgets.dart';
 

@@ -1,19 +1,19 @@
 // ignore_for_file: unnecessary_overrides
 
 import 'package:flutter/material.dart';
-import 'package:iuapp/pages/sedentary.dart';
-import 'pages/principal.dart';
-import 'pages/login/login_screen.dart';
-import 'pages/menu.dart';
-import 'pages/historia.dart';
-import 'pages/level_activity.dart';
-import 'pages/diagnostico.dart';
-import 'pages/plan_aliment.dart';
-import 'pages/acerca_de.dart';
-import 'pages/personal_plan.dart';
-import 'pages/rutina_ejercicio.dart';
-import 'pages/objetivos.dart';
-import 'pages/masa_muscular.dart';
+import 'presentation/pages/sedentary.dart';
+import 'presentation/pages/principal.dart';
+import 'presentation/login/login_screen.dart';
+import 'presentation/pages/menu.dart';
+import 'presentation/pages/historia.dart';
+import 'presentation/pages/level_activity.dart';
+import 'presentation/pages/diagnostico.dart';
+import 'presentation/pages/plan_aliment.dart';
+import 'presentation/pages/acerca_de.dart';
+import 'presentation/pages/personal_plan.dart';
+import 'presentation/pages/rutina_ejercicio.dart';
+import 'presentation/pages/objetivos.dart';
+import 'presentation/pages/masa_muscular.dart';
 
 
 void main() {
