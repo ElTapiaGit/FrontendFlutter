@@ -42,6 +42,7 @@ class _SidebarState extends State<Sidebar> {
             const Divider(color: Colors.grey, indent: 20, endIndent: 20),
             // Lista de opciones
             _buildMenuItem(context, Icons.home, "Menu", '/menu'),
+            _buildMenuItem(context, Icons.supervised_user_circle_outlined, "Gestion de Usuarios", '/user_manag'),
             _buildMenuItem(context, Icons.history, "Historial", '/historial'),
             _buildMenuItem(context, Icons.directions_run, "Nivel de Actividad", '/Nivel_Actividad'),
             _buildMenuItem(context, Icons.notifications, "Notificaciones", '/Notificaciones'),

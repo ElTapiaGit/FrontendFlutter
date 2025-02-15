@@ -124,9 +124,10 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         decoration: InputDecoration(
                           labelText: 'Contraseña',
                           labelStyle: TextStyle(color: AppColors.textWhite),
-                          filled: true,
+                          filled: true,//le da efecto opacidad al fondo del input
                           fillColor: Colors.white.withOpacity(0.2),
                           border: OutlineInputBorder(),
+                          focusColor: Colors.white,
                           prefixIcon: const Icon(Icons.lock, color: Colors.white),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -160,7 +161,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ).copyWith(
-                          shadowColor: MaterialStateProperty.all(Colors.transparent),
+                          shadowColor: WidgetStateProperty.all(Colors.transparent),
                         ),
                         onPressed: _login,
                         child: Container(
@@ -169,6 +170,14 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           decoration: BoxDecoration(
                             gradient: AppColors.primaryButtonGradient,
                             borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                offset: Offset(0, 4),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                              ),
+                            ],
                           ),
                           alignment: Alignment.center,
                           child: Text(
@@ -188,15 +197,23 @@ class _ScreenLoginState extends State<ScreenLogin> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ).copyWith(
-                          shadowColor: MaterialStateProperty.all(Colors.transparent),
+                          shadowColor: WidgetStateProperty.all(Colors.transparent),
                         ),
                         onPressed: _recover,
                         child: Container(
                           width: 300,
                           height: 40,
                           decoration: BoxDecoration(
-                            gradient: AppColors.primaryButtonGradient,
+                            gradient: AppColors.secondaryButtonGradient,
                             borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                offset: Offset(0, 4),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                              ),
+                            ],
                           ),
                           alignment: Alignment.center,
                           child: Text(

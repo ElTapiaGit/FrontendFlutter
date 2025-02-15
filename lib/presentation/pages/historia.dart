@@ -7,6 +7,7 @@ class HistoriaPage extends StatefulWidget {
   const HistoriaPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HistoriaPageState createState() => _HistoriaPageState();
 }
 
@@ -57,7 +58,7 @@ class _HistoriaPageState extends State<HistoriaPage> {
                 // Select Objetivo
                 _buildDropdown(
                   "Objetivo",
-                  ["perder peso", "Mantener peso", "Ganar masa muscular"],
+                  ["perder peso", "Recomposición Corporal", "Aumentar Musculo"],
                   objetivo,
                   (String? newValue) {
                     setState(() {
