@@ -69,12 +69,13 @@ class _RecoverPassPageSatate extends State<RecoverPassPage> {
               TextField(
                 controller: _tokenController,
                 keyboardType: TextInputType.number,
+                cursorColor: Colors.white,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: "Token",
                   hintStyle: const TextStyle(color: Colors.white70),
                   filled: true,
-                  fillColor: Colors.white.withOpacity(0.2),
+                  fillColor: Colors.white.withValues(alpha: 0.2),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: _tokenErrorMessage != null ? Colors.red : Colors.transparent),
@@ -144,7 +145,7 @@ class _RecoverPassPageSatate extends State<RecoverPassPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: _errorMessage != null ? Colors.red : Colors.transparent,
@@ -152,6 +153,7 @@ class _RecoverPassPageSatate extends State<RecoverPassPage> {
                     ),
                     child: TextField(
                       controller: _emailController,
+                      cursorColor: Colors.white,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         icon: Icon(Icons.email, color: _errorMessage != null ? Colors.red : Colors.white),
@@ -186,7 +188,7 @@ class _RecoverPassPageSatate extends State<RecoverPassPage> {
                     width: 300,
                     child: GradientButton(
                       text: "Enviar",
-                      gradient: AppColors.secondaryButtonGradient,
+                      gradient: AppColors.primaryButtonGradient,
                       onPressed: _submit,
                     ),
                   ),

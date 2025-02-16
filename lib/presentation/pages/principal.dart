@@ -53,10 +53,11 @@ class PrincipalPage extends StatelessWidget {
                 height: 50,
                 child: GradientButton(
                   text: "Continuar",
-                  gradient: AppColors.secondaryButtonGradient,
+                  gradient: AppColors.primaryButtonGradient,
                   onPressed: () {
                     Navigator.pushNamed(context, '/login');
                   },
+                  icon: Icons.arrow_forward_ios_rounded,
                 ),
               ),
             ],

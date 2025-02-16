@@ -164,7 +164,7 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                     child: Ink(
         
                       decoration: BoxDecoration(
-                        gradient: AppColors.secondaryButtonGradient,
+                        gradient: AppColors.primaryButtonGradient,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Container(
@@ -206,6 +206,7 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
         keyboardType: keyboardType,
         obscureText: obscureText,
         decoration: _inputDecoration(label).copyWith(),
+        cursorColor: Colors.white,
         style: TextStyle(color: Colors.white),
         validator: validator, // Usamos la validación que pasemos como parámetro
       ),

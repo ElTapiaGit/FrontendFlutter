@@ -15,7 +15,7 @@ class _HistoriaPageState extends State<HistoriaPage> {
   final TextEditingController pesoController = TextEditingController();
   final TextEditingController alturaController = TextEditingController();
   String nivelActivadad = "Sedentario"; // Valor por defecto
-  String objetivo = "perder peso"; //valor por defecto
+  String objetivo = "Perder peso"; //valor por defecto
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _HistoriaPageState extends State<HistoriaPage> {
                 // Select Objetivo
                 _buildDropdown(
                   "Objetivo",
-                  ["perder peso", "Recomposición Corporal", "Aumentar Musculo"],
+                  ["Perder peso", "Recomposición Corporal", "Aumentar Musculo"],
                   objetivo,
                   (String? newValue) {
                     setState(() {
@@ -70,15 +70,15 @@ class _HistoriaPageState extends State<HistoriaPage> {
         
                 //boton
                 SizedBox(
-                  width: 250,
-                  height: 60,
+                  width: 300,
+                  height: 40,
                   child: GradientButton(
                     text: "Continuar", 
-                    gradient: AppColors.secondaryButtonGradient, 
+                    gradient: AppColors.primaryButtonGradient, 
                     onPressed: () {
                       //naviagtioon para rediregir o pasar formulario
                     },
-                    icon: Icons.arrow_forward, // Icono de ">"
+                    icon: Icons.arrow_forward_ios_rounded, // Icono de ">"
                   ),
                 )
               ],
@@ -125,6 +125,7 @@ class _HistoriaPageState extends State<HistoriaPage> {
   Widget _buildTextField(String label, TextEditingController controller) {
     return TextField(controller: controller,
       keyboardType: TextInputType.number,
+      cursorColor: Colors.white,
       style: TextStyle(color: AppColors.textWhite),
       decoration: InputDecoration(
         labelText: label,

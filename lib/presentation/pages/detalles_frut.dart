@@ -21,7 +21,7 @@ class DetallesFruta extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 📌 Imagen superior
+            SizedBox(height: 20,),
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
@@ -44,7 +44,7 @@ class DetallesFruta extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(
@@ -92,7 +92,7 @@ class DetallesFruta extends StatelessWidget {
                     // Acción cuando se presiona el botón
                   },
                   icon: Icons.arrow_forward_ios, // Icono del botón
-                  gradient: AppColors.secondaryButtonGradient,
+                  gradient: AppColors.primaryButtonGradient,
                 ),
               ),
             ),

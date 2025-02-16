@@ -11,17 +11,18 @@ class ObjetivosPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Sidebar(),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text("PLAN PERSONALIZADO"),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: AppColors.backroundGradient, // Fondo degradado
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -39,6 +40,7 @@ class ObjetivosPage extends StatelessWidget {
               // Tarjetas de categorías
               Expanded(
                 child: ListView(
+                  padding: const EdgeInsets.only(top: 10),
                   children: [
                     CategoryCard(
                       title: "DEFINICION",

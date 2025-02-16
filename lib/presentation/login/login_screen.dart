@@ -95,12 +95,13 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
+                        cursorColor: Colors.white,
                         style: TextStyle(color: AppColors.textWhite),
                         decoration: InputDecoration(
                           labelText: 'Correo electrónico',
                           labelStyle: TextStyle(color: AppColors.textWhite),
                           filled: true,
-                          fillColor: Colors.white.withOpacity(0.2),
+                          fillColor: Colors.white.withValues(alpha: 0.2),
                           border: OutlineInputBorder(),
                           prefixIcon: const Icon(Icons.email, color: Colors.white),
                         ),
@@ -120,14 +121,14 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       TextFormField(
                         controller: passwordController,
                         obscureText: _obscureText,
+                        cursorColor: Colors.white,
                         style: TextStyle(color: AppColors.textWhite),
                         decoration: InputDecoration(
                           labelText: 'Contraseña',
                           labelStyle: TextStyle(color: AppColors.textWhite),
                           filled: true,//le da efecto opacidad al fondo del input
-                          fillColor: Colors.white.withOpacity(0.2),
+                          fillColor: Colors.white.withValues(alpha: 0.2),
                           border: OutlineInputBorder(),
-                          focusColor: Colors.white,
                           prefixIcon: const Icon(Icons.lock, color: Colors.white),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -150,7 +151,22 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+
+                      // Texto de "Recuperar contraseña" como enlace
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: _recover,
+                          child: Text(
+                            '¿Olvidaste tu contraseña?',
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
                       
                       // Botón de inicio de sesión
                       ElevatedButton(
@@ -172,7 +188,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                             borderRadius: BorderRadius.circular(10.0),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
+                                color: Colors.black.withValues(alpha: 0.2),
                                 offset: Offset(0, 4),
                                 blurRadius: 6,
                                 spreadRadius: 2,
@@ -187,42 +203,6 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         ),
                       ),
                       SizedBox(height: 20),
-
-                      // Botón de inicio de sesión
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ).copyWith(
-                          shadowColor: WidgetStateProperty.all(Colors.transparent),
-                        ),
-                        onPressed: _recover,
-                        child: Container(
-                          width: 300,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            gradient: AppColors.secondaryButtonGradient,
-                            borderRadius: BorderRadius.circular(10.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                offset: Offset(0, 4),
-                                blurRadius: 6,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Recuperar contraseña',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20,),
                       
                       // Botón de registrarse
                       GestureDetector(
@@ -248,7 +228,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                             'Registrarse',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16.0,
+                              fontSize: 18.0,
                             ),
                           ),
                         ),

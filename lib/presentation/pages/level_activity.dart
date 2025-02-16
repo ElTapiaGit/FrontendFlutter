@@ -11,10 +11,13 @@ class ActivityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Sidebar(), //se agrega el sidebar
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text("NIVEL DE ACTIVIDAD"),
+        title: const Text("NIVEL DE ACTIVIDAD", style: TextStyle(color: Colors.white),),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white), 
       ),
       body: Container(
         decoration: const BoxDecoration(

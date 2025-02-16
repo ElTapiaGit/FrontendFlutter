@@ -7,6 +7,12 @@ class RutinasEjerciciosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: Container(
         decoration:  const BoxDecoration(
           gradient: AppColors.backroundGradient, //fondo
@@ -83,7 +89,7 @@ class RutinasEjerciciosPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.secondaryButtonGradient,
+          gradient: AppColors.primaryButtonGradient,
           borderRadius: BorderRadius.circular(8),
         ),
         child: TextButton(
@@ -93,6 +99,7 @@ class RutinasEjerciciosPage extends StatelessWidget {
               Text(
                 day,
                 style: const TextStyle(
+                  fontSize: 18,
                   color: AppColors.textWhite,
                   fontWeight: FontWeight.bold,
                 ),
@@ -111,7 +118,7 @@ class RutinasEjerciciosPage extends StatelessWidget {
 
   Widget _buildExerciseCard() {
     return Card(
-      color: Colors.black.withOpacity(0.7),
+      color: Colors.black.withValues(alpha: 0.7),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),

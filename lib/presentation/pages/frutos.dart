@@ -25,6 +25,7 @@ class FrutosPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Imagen principal
+              SizedBox(height: 10,),
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
@@ -53,7 +54,7 @@ class FrutosPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -85,7 +86,7 @@ class FrutosPage extends StatelessWidget {
                 width: 400,
                 child: GradientButton(
                   text: "MAS DETALLES",
-                  gradient: AppColors.secondaryButtonGradient,
+                  gradient: AppColors.primaryButtonGradient,
                   onPressed: () {
                     Navigator.push(
                       context,

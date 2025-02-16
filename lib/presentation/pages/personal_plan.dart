@@ -13,28 +13,45 @@ class PlanPersonalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Sidebar(),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text("PLAN PERSONALIZADO"),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      extendBodyBehindAppBar: false,
+
       body: Container(
-        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: AppColors.backroundGradient, // Fondo degradado
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start, // Alinea todo a la izquierda
             children: [
-              const Text(
-                "CATEGORÍA",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              Center(
+                child: const Text(
+                  "PLAN DE ALIMENTACION",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20,),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: const Text(
+                  "CATEGORÍA",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -42,6 +59,7 @@ class PlanPersonalPage extends StatelessWidget {
               // Tarjetas de categorías
               Expanded(
                 child: ListView(
+                  padding: const EdgeInsets.only(top: 10),
                   children: [
                     CategoryCard(
                       title: "RUTINA DE EJERCICIOS",
@@ -84,53 +102,4 @@ class PlanPersonalPage extends StatelessWidget {
     );
   }
 }
-
-/*/Widget de la tarjeta de categoría
-class CategoryCard extends StatelessWidget {
-  final String title;
-  final String imagePath;
-  final VoidCallback onTap;
-
-  const CategoryCard({
-    super.key,
-    required this.title,
-    required this.imagePath,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell( // Detecta el toque
-      onTap: onTap,
-      child: Card(
-        color: Colors.transparent,
-        elevation: 0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
-                imagePath,
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 15),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 5),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
 

@@ -42,7 +42,7 @@ class _UserListPageState extends State<UserListPage> {
             TextField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white.withOpacity(0.2),
+                fillColor: Colors.white.withValues(alpha: 0.2),
                 hintText: "Buscar",
                 hintStyle: TextStyle(color: Colors.white),
                 prefixIcon: Icon(Icons.search, color: Colors.white),
@@ -51,6 +51,7 @@ class _UserListPageState extends State<UserListPage> {
                   borderSide: BorderSide.none,
                 ),
               ),
+              cursorColor: Colors.white,
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 20),
@@ -78,7 +79,7 @@ class _UserListPageState extends State<UserListPage> {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.white.withOpacity(0.3),
+                              backgroundColor: Colors.white.withValues(alpha: 0.3),
                               child: Icon(Icons.person, color: Colors.white),
                             ),
                             SizedBox(width: 10),
@@ -117,7 +118,7 @@ class _UserListPageState extends State<UserListPage> {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: color.withOpacity(0.8),
+          color: color.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.all(6),

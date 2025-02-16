@@ -54,7 +54,7 @@ class SedentarioPage extends StatelessWidget {
                 width: 200,
                 child: GradientButton(
                   text: "Continuar",
-                  gradient: AppColors.secondaryButtonGradient, // Botón secundario
+                  gradient: AppColors.primaryButtonGradient,
                   onPressed: () {
                     // Aquí puedes definir la siguiente acción
                   },

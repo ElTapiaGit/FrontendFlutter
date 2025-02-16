@@ -16,9 +16,10 @@ class PlanAlimentoPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 80),
+        padding: EdgeInsets.only(top: 40),
         decoration: const BoxDecoration(
           gradient: AppColors.backroundGradient, // Fondo degradado
         ),
@@ -35,11 +36,11 @@ class PlanAlimentoPage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 0),
 
               // Tarjetas de categorías
               Expanded(
                 child: ListView(
+                  padding: EdgeInsets.only(top: 40),
                   children: [
                     CategoryCard(
                       title: "BOWL DE AVENA CON FRUTOS ROJOS",
