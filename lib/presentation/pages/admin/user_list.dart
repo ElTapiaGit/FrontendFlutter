@@ -1,48 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import '../../constants/theme.dart';
+import 'package:iuapp/data/api/api_service.dart';
+import 'package:iuapp/data/models/role_model.dart' as role;
+import 'package:iuapp/data/models/user_model.dart';
+
 
 class UserListPage extends StatefulWidget {
   const UserListPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _UserListPageState createState() => _UserListPageState();
 }
 
 class _UserListPageState extends State<UserListPage> {
-  final List<String> users = [
-    "Juan Castillo",
-    "Fernando Rojas",
-    "Víctor Almanza",
-    "Fernando Loreto",
-  ];
+  late ApiService apiService;
+  List<UserModel> users = []; // Lista completa de usuarios
+  List<UserModel> filteredUsers = []; // Lista filtrada para la búsqueda
 
+
+
+
+  bool isLoading = true;
   String? selectedRole;
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    apiService = ApiService(Dio());
+    fetchUsers();
+
+  }
+
+  Future<void> fetchUsers() async {
+    try {
+      final response = await apiService.getUsers(1, 20);
+      setState(() {
+        users = response.users;
+        filteredUsers = users; // Inicialmente, filteredUsers tiene todos los usuarios
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() => isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error al cargar usuarios: $e")),
+      );
+    }
+  }
+
+
+
+
+
+
+
+  void _filterUsers(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredUsers = users;
+      } else {
+        filteredUsers = users.where((user) {
+          final fullName = "${user.nombres} ${user.apellidoPa}".toLowerCase();
+          return fullName.contains(query.toLowerCase());
+        }).toList();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backroundGradient.colors.first, // Fondo desde theme.dart
+      backgroundColor: AppColors.backroundGradient.colors.first,
       appBar: AppBar(
-        title: Text("Lista de usuarios", style: TextStyle(color: AppColors.textWhite, fontSize: 20, fontWeight: FontWeight.bold)),
+        title: Text(
+          "Lista de usuarios",
+          style: TextStyle(color: AppColors.textWhite, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             // Campo de búsqueda
             TextField(
+              controller: searchController,
+              onChanged: _filterUsers, // Filtrar usuarios en tiempo real
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white.withValues(alpha: 0.2),
+                fillColor: Colors.white.withOpacity(0.2),
                 hintText: "Buscar",
                 hintStyle: TextStyle(color: Colors.white),
                 prefixIcon: Icon(Icons.search, color: Colors.white),
@@ -66,25 +117,31 @@ class _UserListPageState extends State<UserListPage> {
             ),
             SizedBox(height: 10),
 
+            // Lista de usuarios con API
             Expanded(
-              child: ListView.builder(
-                itemCount: users.length,
+              child: isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : filteredUsers.isEmpty
+                  ? Center(child: Text("No se encontraron usuarios", style: TextStyle(color: Colors.white)))
+                  : ListView.builder(
+                itemCount: filteredUsers.length,
                 itemBuilder: (context, index) {
+                  final user = filteredUsers[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Nombres del usuario
+                        // Datos del usuario
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.white.withValues(alpha: 0.3),
+                              backgroundColor: Colors.white.withOpacity(0.3),
                               child: Icon(Icons.person, color: Colors.white),
                             ),
                             SizedBox(width: 10),
                             Text(
-                              users[index],
+                              "${user.nombres} ${user.apellidoPa}",
                               style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ],
@@ -93,11 +150,9 @@ class _UserListPageState extends State<UserListPage> {
                         // Botones de acción
                         Row(
                           children: [
-                            _actionButton(Icons.update, Colors.blue, () => _showUpdateModal(context, users[index])),
+                            _actionButton(Icons.update, Colors.blue, () => _showUpdateModal(context, user)),
                             SizedBox(width: 8),
-                            _actionButton(Icons.delete, Colors.red, () {}),//implentar las acciones
-                            SizedBox(width: 8),
-                            _actionButton(Icons.info, Colors.grey, () {}),//implementar las acciones
+                            _actionButton(Icons.info, Colors.grey, () {}),
                           ],
                         ),
                       ],
@@ -118,7 +173,7 @@ class _UserListPageState extends State<UserListPage> {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.8),
+          color: color.withOpacity(0.8),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.all(6),
@@ -127,45 +182,28 @@ class _UserListPageState extends State<UserListPage> {
     );
   }
 
-  // Método para mostrar el modal de actualización
-  void _showUpdateModal(BuildContext context, String userName) {
+  // Método para mostrar el modal de actualización de rol
+  void _showUpdateModal(BuildContext context, UserModel user) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Center(child: Text("Asignar un rol", style: TextStyle(fontWeight: FontWeight.bold))),
           content: Form(
-            key: _formKey, // Asigna la clave del formulario
+            key: _formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Dropdown para seleccionar el rol con validación
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  ),
-                  value: selectedRole,
-                  hint: Text("Seleccionar un rol"),
-                  items: ["Administrador", "Entrenador", "Estudiante"].map((role) {
-                    return DropdownMenuItem(
-                      value: role,
-                      child: Text(role),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedRole = value;
-                    });
-                  },
-                  validator: (value) => value == null ? "Por favor, selecciona un rol" : null, // Mensaje de error en rojo
-                ),
+                // Dropdown para seleccionar el rol
+               
+
+
                 SizedBox(height: 20),
                 // Botón de enviar
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Si el formulario es válido, cierra el modal
+                      // Llamar a la API
                       Navigator.pop(context);
                     }
                   },
@@ -173,8 +211,9 @@ class _UserListPageState extends State<UserListPage> {
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
-                  child: Text("Enviar", style: TextStyle(color: Colors.white)),
+                  child: Text("Asignar", style: TextStyle(color: Colors.white)),
                 ),
+
               ],
             ),
           ),
@@ -182,6 +221,5 @@ class _UserListPageState extends State<UserListPage> {
       },
     );
   }
+
 }
-
-

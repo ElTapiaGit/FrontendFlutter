@@ -1,11 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:iuapp/data/models/register_request.dart'; // Importa el modelo de registro
+import 'package:iuapp/data/api/api_service.dart'; // Importa el servicio API
 import '../constants/theme.dart';
+
 
 class RegisterDatosScreen extends StatefulWidget {
   const RegisterDatosScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _RegisterDatosScreenState createState() => _RegisterDatosScreenState();
 }
 
@@ -18,7 +21,6 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
   final TextEditingController _fechaNacimientoController = TextEditingController();
   final TextEditingController _direccionController = TextEditingController();
   final TextEditingController _telefonoController = TextEditingController();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
@@ -26,11 +28,75 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
   bool _passwordsMatch = true;
   bool _isPasswordVisible = false;
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()){
-      //logica para enviar formulario
+  void _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final dio = Dio();
+        final apiService = ApiService(dio);
+
+        final registerRequest = RegisterRequest(
+          nombres: _nombreController.text,
+          apellidoPa: _apellidoPaController.text,
+          apellidoMa: _apellidoMaController.text,
+          fechaNacimiento: _fechaNacimientoController.text,
+          genero: _sexo ?? "",
+          direccion: _direccionController.text,
+          correo: _emailController.text,
+          password: _passwordController.text,
+        );
+
+        await apiService.register(registerRequest);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('¡Registro exitoso!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        // Navegar a la pantalla de login
+        //Navigator.pop(context);
+
+      } catch (e) {
+
+        String errorMessage = 'Error desconocido';
+
+        if (e is DioException) {
+          // Manejo de errores de la API
+          if (e.response != null) {
+            // Si recibimos un JSON con mensaje de error específico
+            if (e.response?.data is Map<String, dynamic> &&
+                e.response?.data.containsKey('message')) {
+              errorMessage = e.response?.data['message'];
+
+              // Manejo específico para el error de correo existente
+              if (errorMessage == 'El correo ya está registrado.') {
+                errorMessage = 'Este correo electrónico ya está en uso. Por favor utiliza otro.';
+              }
+            }
+            // Manejo para otros tipos de respuestas de error
+            else if (e.response?.data is String) {
+              errorMessage = e.response?.data ?? 'Error en el servidor';
+            }
+          } else {
+            // Manejo de errores de conexión
+            errorMessage = e.message?.contains('Failed host lookup') ?? false
+                ? 'Error de conexión. Verifica tu internet'
+                : 'Error en la solicitud';
+          }
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +107,11 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
           style: TextStyle(color: AppColors.textWhite, fontSize: 20),
         ),
         centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white), //color del icono de retroceso
+        iconTheme: IconThemeData(color: Colors.white), // color del icono de retroceso
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       extendBodyBehindAppBar: true, // Para que el fondo abarque la barra
-
       body: Container(
         height: double.infinity,
         padding: EdgeInsets.only(top: 80),
@@ -57,7 +122,7 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
-            child: SingleChildScrollView( //para manejar scroll 
+            child: SingleChildScrollView( // para manejar scroll
               child: Column(
                 children: [
                   _buildTextField(_nombreController, "Nombre", validator: (value) {
@@ -67,14 +132,13 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                   _buildTextField(_apellidoPaController, "Apellido Paterno"),
                   _buildTextField(_apellidoMaController, "Apellido Materno"),
                   SizedBox(height: 20),
-        
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
                           value: _sexo,
-                          decoration: _inputDecoration("Genero"),
+                          decoration: _inputDecoration("Género"),
                           dropdownColor: Colors.blue.shade900, // Fondo del menú desplegable
                           style: const TextStyle(color: Colors.white),
                           iconSize: 20,
@@ -89,10 +153,9 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                               _sexo = newValue;
                             });
                           },
-                          validator: (value) => value == null ? "Seleccione un genero" : null,
+                          validator: (value) => value == null ? "Seleccione un género" : null,
                         ),
                       ),
-
                       SizedBox(width: 20),
                       Expanded(
                         child: TextFormField(
@@ -108,53 +171,46 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                               initialDate: DateTime.now(),
                               firstDate: DateTime(1900),
                               lastDate: DateTime.now(),
+                              locale: const Locale('es', 'ES'),
                             );
-                           if (pickedDate != null) {
+                            if (pickedDate != null) {
                               setState(() {
                                 _fechaNacimientoController.text = "${pickedDate.toLocal()}".split(' ')[0];
                               });
                             }
                           },
-                            validator: (value) => value!.isEmpty ? "Seleccione una fecha" : null,
+                          validator: (value) => value!.isEmpty ? "Seleccione una fecha" : null,
                         ),
                       ),
                     ],
                   ),
-        
                   SizedBox(height: 20),
-        
                   _buildTextField(_direccionController, "Dirección"),
-        
-                  _buildTextField(_telefonoController, "Teléfono", 
-                  keyboardType: TextInputType.phone, 
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return "Ingrese su Teléfono";
-                    if (!RegExp(r'^[0-9]{7,15}$').hasMatch(value)) return "Ingrese un teléfono válido (7-15 dígitos)";
-                    return null;
-                  }),
-              
+                  _buildTextField(_telefonoController, "Teléfono",
+                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) return "Ingrese su Teléfono";
+                        if (!RegExp(r'^[0-9]{7,15}$').hasMatch(value)) return "Ingrese un teléfono válido (7-15 dígitos)";
+                        return null;
+                      }),
                   _buildTextField(_emailController, "Correo", keyboardType: TextInputType.emailAddress, validator: (value) {
                     if (value!.isEmpty || !value.endsWith("@gmail.com")) {
                       return "Ingrese un correo Gmail válido";
                     }
                     return null;
                   }),
-
                   _buildPasswordField(_passwordController, "Contraseña", validator: (value) {
                     if (value!.length < 4) return "La contraseña debe tener al menos 4 caracteres";
                     return null;
                   }),
-        
                   _buildTextField(_confirmPasswordController, "Confirmar Contraseña", obscureText: true, validator: (value) {
                     setState(() => _passwordsMatch = _passwordController.text == value);
                     return _passwordsMatch ? null : "Las contraseñas no coinciden";
                   }, borderColor: _passwordsMatch ? Colors.green : Colors.red),
-              
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _submitForm,
                     style: ElevatedButton.styleFrom(
-                      //backgroundColor: Colors.blueAccent,
                       padding: EdgeInsets.all(0.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -162,7 +218,6 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                       backgroundColor: Color.fromARGB(0, 241, 17, 17),
                     ),
                     child: Ink(
-        
                       decoration: BoxDecoration(
                         gradient: AppColors.primaryButtonGradient,
                         borderRadius: BorderRadius.circular(10),
@@ -174,13 +229,36 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          "Enviar", 
+                          "Enviar",
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                          )
-                        )
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Dentro del Column children, después del ElevatedButton
+                  const SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                    child: RichText(
+                      text: const TextSpan(
+                        text: '¿Ya tienes cuenta? ',
+                        style: TextStyle(color: Colors.white70),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Inicia Sesión',
+                            style: TextStyle(
+                                color: Colors.white,
+                                decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -194,9 +272,9 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
   }
 
   Widget _buildTextField(TextEditingController controller, String label, {
-    TextInputType keyboardType = TextInputType.text, 
-    bool obscureText = false, 
-    String? Function(String?)? validator, 
+    TextInputType keyboardType = TextInputType.text,
+    bool obscureText = false,
+    String? Function(String?)? validator,
     Color borderColor = Colors.white
   }) {
     return Padding(
@@ -219,12 +297,11 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
       labelStyle: TextStyle(color: Colors.white70),
       filled: true,
       fillColor: Colors.transparent,// color de fondo de los input
-      
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.white60,
-          width: 2,
-        )
+          borderSide: BorderSide(
+            color: Colors.white60,
+            width: 2,
+          )
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -239,9 +316,9 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
         borderSide: const BorderSide(color: Colors.red, width: 2), // Borde rojo en error
       ),
       errorStyle: TextStyle(
-      color: Colors.white, //color de los mensajes de error
-      fontSize: 14,
-    ),
+        color: Colors.white, //color de los mensajes de error
+        fontSize: 14,
+      ),
     );
   }
 
@@ -285,7 +362,7 @@ class _RegisterDatosScreenState extends State<RegisterDatosScreen> {
           ),
           errorStyle: TextStyle(
             color: Colors.white, //color de los mensajes de error
-            fontSize: 14, 
+            fontSize: 14,
           ),
         ),
         style: TextStyle(color: Colors.white),
