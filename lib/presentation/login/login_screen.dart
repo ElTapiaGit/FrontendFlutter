@@ -13,6 +13,7 @@ import 'recover_pass.dart';
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
   @override
+  // ignore: library_private_types_in_public_api
   _ScreenLoginState createState() => _ScreenLoginState();
 }
 
@@ -123,7 +124,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           labelText: 'Correo electrónico',
                           labelStyle: TextStyle(color: AppColors.textWhite),
                           filled: true,
-                          fillColor: Colors.white.withOpacity(0.2),
+                          fillColor: Colors.white.withValues(alpha: 0.2),
                           border: OutlineInputBorder(),
                           prefixIcon: const Icon(Icons.email, color: Colors.white),
                         ),
@@ -147,7 +148,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           labelText: 'Contraseña',
                           labelStyle: TextStyle(color: AppColors.textWhite),
                           filled: true,
-                          fillColor: Colors.white.withOpacity(0.2),
+                          fillColor: Colors.white.withValues(alpha: 0.2),
                           border: OutlineInputBorder(),
                           prefixIcon: const Icon(Icons.lock, color: Colors.white),
                           suffixIcon: IconButton(
@@ -184,7 +185,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15),
+
+                      SizedBox(height: 20),
                       _isLoading
                           ? CircularProgressIndicator()
                           : ElevatedButton(
@@ -198,8 +200,29 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           shadowColor: WidgetStateProperty.all(Colors.transparent),
                         ),
                         onPressed: _login,
-                        child: Text('Iniciar sesión', style: TextStyle(color: Colors.white, fontSize: 20)),
+                        child: Container(
+                          width: 300,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            gradient: AppColors.primaryButtonGradient,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                offset: Offset(0, 4),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Iniciar sesión',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
                       ),
+
                       SizedBox(height: 20),
                       // Botón de registrarse
                       GestureDetector(
