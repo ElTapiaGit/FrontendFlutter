@@ -7,10 +7,11 @@ import 'package:iuapp/data/models/register_request.dart';
 import 'package:iuapp/data/models/login_response.dart';
 import 'package:iuapp/data/models/user_model.dart';
 import 'package:iuapp/data/models/role_model.dart';
+import 'package:iuapp/data/models/role_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'api_service.g.dart';
-@RestApi(baseUrl: "https://captured-virgin-am-minds.trycloudflare.com/api")
+@RestApi(baseUrl: "https://monetary-posters-copper-ship.trycloudflare.com/api")
 abstract class ApiService {
   factory ApiService(Dio dio) {
     dio.interceptors.add(TokenInterceptor()); // Agrega el interceptor aquí
@@ -25,13 +26,13 @@ abstract class ApiService {
 
   @GET("/usuarios")
   Future<UserResponse> getUsers(@Query("page") int page, @Query("limit") int limit);
+  @GET("/roles") // NUEVO: Método para obtener los roles
+  Future<RoleResponse> getRoles();
 
-
-
-
-
-
-
-
+  @PUT("/usuarios/{id}")
+  Future<void> assignRoleToUser(
+      @Path("id") String userId,
+      @Body() Map<String, dynamic> body,
+      );
 
 }
