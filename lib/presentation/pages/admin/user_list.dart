@@ -137,6 +137,9 @@ class _UserListPageState extends State<UserListPage> {
                             SizedBox(width: 8),
                             _actionButton(Icons.info, Colors.grey,
                                     () => _showUserInfo(context, user)),
+                            SizedBox(width: 8),
+                            _actionButton(Icons.delete, Colors.red,
+                                    () => _deleteUser(context, user)),
                           ],
                         ),
                       ],
@@ -174,6 +177,60 @@ class _UserListPageState extends State<UserListPage> {
         return RoleAssignmentDialog(user: user);
       },
     );
+  }
+  // Agrega este método en la clase _UserListPageState
+  void _deleteUser(BuildContext context, UserModel user) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.backroundGradient.colors.first,
+        title: Text("Confirmar eliminación",
+            style: TextStyle(color: AppColors.textWhite)),
+        content: Text("¿Estás seguro de eliminar a ${user.nombres}?",
+            style: TextStyle(color: AppColors.textWhite)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text("Cancelar",
+                style: TextStyle(color: AppColors.textWhite)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text("Eliminar",
+                style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      try {
+        await apiService.deleteUser(user.id);
+
+        if (mounted) {
+          setState(() {
+            users.removeWhere((u) => u.id == user.id);
+            filteredUsers = List.from(users);
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Usuario eliminado exitosamente"),
+              backgroundColor:  Colors.blueGrey[800],
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Error al eliminar: ${e.toString()}"),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
   }
   // Método para construir filas de información (agrégalo en tu clase _UserListPageState)
   Widget _buildInfoRow(String label, String value) {
@@ -223,7 +280,7 @@ class _UserListPageState extends State<UserListPage> {
               if (user.rol != null)
                 _buildInfoRow("Rol:", user.rol!.name),
               // Agrega más campos según tu UserModel:
-              // _buildInfoRow("Teléfono:", user.telefono ?? "N/A"),
+              //_buildInfoRow("Teléfono:", user.telefono ?? "N/A"),
               // _buildInfoRow("Estado:", user.activo ? "Activo" : "Inactivo"),
             ],
           ),

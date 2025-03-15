@@ -6,6 +6,7 @@ import 'presentation/pages/principal.dart';
 import 'presentation/login/login_screen.dart';
 import 'presentation/pages/menu.dart';
 import 'presentation/pages/admin/user_list.dart';
+import 'presentation/pages/Alumnos/ManagementPageAlumno.dart';
 import 'presentation/pages/historia.dart';
 import 'presentation/pages/level_activity.dart';
 import 'presentation/pages/diagnostico.dart';
@@ -43,6 +44,7 @@ class MainApp extends StatelessWidget {
         '/login': (context) => const ScreenLogin(),
         '/menu': (context) => const MenuPage(),
         '/user_manag': (context)=> const UserListPage(),
+        '/alumnos': (context)=> const ManagementPage(),
         '/historial': (context) => const HistoriaPage(),
         '/Nivel_Actividad': (context) => const ActivityPage(),
         '/sedentario': (context) => const SedentarioPage(),

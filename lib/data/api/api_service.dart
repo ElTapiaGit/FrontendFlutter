@@ -7,11 +7,13 @@ import 'package:iuapp/data/models/register_request.dart';
 import 'package:iuapp/data/models/login_response.dart';
 import 'package:iuapp/data/models/user_model.dart';
 import 'package:iuapp/data/models/role_model.dart';
+import 'package:iuapp/data/models/EnrollmentResponse.dart';
+import 'package:iuapp/data/models/enrol_request.dart';
 import 'package:iuapp/data/models/role_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'api_service.g.dart';
-@RestApi(baseUrl: "https://monetary-posters-copper-ship.trycloudflare.com/api")
+@RestApi(baseUrl: "https://treating-tsunami-summer-specifications.trycloudflare.com/api")
 abstract class ApiService {
   factory ApiService(Dio dio) {
     dio.interceptors.add(TokenInterceptor()); // Agrega el interceptor aquí
@@ -34,5 +36,13 @@ abstract class ApiService {
       @Path("id") String userId,
       @Body() Map<String, dynamic> body,
       );
+  @DELETE("/usuarios/{id}")
+  Future<void> deleteUser(@Path("id") String userId);
 
+  @POST("/enroll")
+  Future<void> enrollStudent(@Body() EnrolRequest request);
+
+  // Nuevo método para obtener las matrículas
+  @GET("/enrollments")
+  Future<EnrollmentResponse> getEnrollments();
 }
