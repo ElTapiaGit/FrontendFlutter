@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import '../../constants/theme.dart';
 import 'package:iuapp/data/api/api_service.dart';
-import 'package:iuapp/data/models/role_model.dart' as role;
+import 'package:iuapp/data/models/role_model.dart'as role;
 import 'package:iuapp/data/models/user_model.dart';
-
 
 class UserListPage extends StatefulWidget {
   const UserListPage({super.key});
@@ -138,6 +137,9 @@ class _UserListPageState extends State<UserListPage> {
                             SizedBox(width: 8),
                             _actionButton(Icons.info, Colors.grey,
                                     () => _showUserInfo(context, user)),
+                            SizedBox(width: 8),
+                            _actionButton(Icons.delete, Colors.red,
+                                    () => _deleteUser(context, user)),
                           ],
                         ),
                       ],
@@ -176,6 +178,62 @@ class _UserListPageState extends State<UserListPage> {
       },
     );
   }
+
+  // Agrega este método en la clase _UserListPageState
+  void _deleteUser(BuildContext context, UserModel user) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.backroundGradient.colors.first,
+        title: Text("Confirmar eliminación",
+            style: TextStyle(color: AppColors.textWhite)),
+        content: Text("¿Estás seguro de eliminar a ${user.nombres}?",
+            style: TextStyle(color: AppColors.textWhite)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text("Cancelar",
+                style: TextStyle(color: AppColors.textWhite)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text("Eliminar",
+                style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      try {
+        await apiService.deleteUser(user.id);
+
+        if (mounted) {
+          setState(() {
+            users.removeWhere((u) => u.id == user.id);
+            filteredUsers = List.from(users);
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Usuario eliminado exitosamente"),
+              backgroundColor:  Colors.blueGrey[800],
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Error al eliminar: ${e.toString()}"),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
+  }
+
   // Método para construir filas de información (agrégalo en tu clase _UserListPageState)
   Widget _buildInfoRow(String label, String value) {
     return Padding(
