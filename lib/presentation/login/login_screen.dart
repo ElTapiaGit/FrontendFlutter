@@ -4,7 +4,6 @@ import '../constants/theme.dart';
 import '../pages/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:iuapp/data/models/login_request.dart';
-import 'package:iuapp/data/models/login_response.dart';
 import 'package:iuapp/data/api/api_service.dart';
 import 'register_data.dart';
 import 'recover_pass.dart';

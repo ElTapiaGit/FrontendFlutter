@@ -13,7 +13,7 @@ import 'package:iuapp/data/models/role_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'api_service.g.dart';
-@RestApi(baseUrl: "https://treating-tsunami-summer-specifications.trycloudflare.com/api")
+@RestApi(baseUrl: "http://localhost:9000/api")
 abstract class ApiService {
   factory ApiService(Dio dio) {
     dio.interceptors.add(TokenInterceptor()); // Agrega el interceptor aquí

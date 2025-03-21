@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../layout/sidebar.dart';
 import '../../constants/theme.dart';
 import 'enroll_students_page.dart';
+import 'assign_routine_page.dart';
 
 class ManagementPage extends StatelessWidget {
   const ManagementPage({super.key});
@@ -222,8 +223,8 @@ class EnrollStudentsPage extends StatelessWidget {
   }
 }
 
-class AssignRoutinePage extends StatelessWidget {
-  const AssignRoutinePage({super.key});
+class AssignRoutinePage2 extends StatelessWidget {
+  const AssignRoutinePage2({super.key});
 
   @override
   Widget build(BuildContext context) {

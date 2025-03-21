@@ -54,7 +54,7 @@ class _UserListPageState extends State<UserListPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return Scaffold(
       backgroundColor: AppColors.backroundGradient.colors.first,
       appBar: AppBar(
