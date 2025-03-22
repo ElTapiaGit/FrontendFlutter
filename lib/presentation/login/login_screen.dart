@@ -52,7 +52,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
         );
       } catch (e) {
         String errorMessage = 'Error al iniciar sesión';
-        if (e is DioError) {
+        if (e is DioException) {
           if (e.response?.data != null && e.response?.data['message'] != null) {
             errorMessage = e.response?.data['message'];
           }

@@ -9,6 +9,7 @@ class RegisterDatosScreen extends StatefulWidget {
   const RegisterDatosScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterDatosScreenState createState() => _RegisterDatosScreenState();
 }
 

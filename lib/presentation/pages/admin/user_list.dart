@@ -9,6 +9,7 @@ class UserListPage extends StatefulWidget {
   const UserListPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserListPageState createState() => _UserListPageState();
 }
 
@@ -305,7 +306,7 @@ class _UserListPageState extends State<UserListPage> {
 class RoleAssignmentDialog extends StatefulWidget {
   final UserModel user;
 
-  const RoleAssignmentDialog({Key? key, required this.user}) : super(key: key);
+  const RoleAssignmentDialog({super.key, required this.user});
 
   @override
   _RoleAssignmentDialogState createState() => _RoleAssignmentDialogState();

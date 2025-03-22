@@ -6,11 +6,10 @@ import 'package:iuapp/data/models/login_request.dart';
 import 'package:iuapp/data/models/register_request.dart';
 import 'package:iuapp/data/models/login_response.dart';
 import 'package:iuapp/data/models/user_model.dart';
-import 'package:iuapp/data/models/role_model.dart';
 import 'package:iuapp/data/models/EnrollmentResponse.dart';
 import 'package:iuapp/data/models/enrol_request.dart';
 import 'package:iuapp/data/models/role_response.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../models/progress_model.dart';
 
 part 'api_service.g.dart';
 @RestApi(baseUrl: "http://localhost:9000/api")
@@ -45,4 +44,8 @@ abstract class ApiService {
   // Nuevo método para obtener las matrículas
   @GET("/enrollments")
   Future<EnrollmentResponse> getEnrollments();
+
+  //prueba de enpoint elTapia
+  @POST("/progress")
+  Future<void> createProgress(@Body() ProgressRequest progress);
 }

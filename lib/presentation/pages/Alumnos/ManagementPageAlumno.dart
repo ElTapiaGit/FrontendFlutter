@@ -114,6 +114,7 @@ class AnimatedActivityCard extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _AnimatedActivityCardState createState() => _AnimatedActivityCardState();
 }
 
@@ -144,7 +145,7 @@ class _AnimatedActivityCardState extends State<AnimatedActivityCard> {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(_isHovered ? 0.3 : 0.2),
+                color: Colors.black.withValues(alpha: _isHovered ? 0.3 : 0.2),
                 blurRadius: _isHovered ? 20 : 10,
                 offset: const Offset(0, 4),
               )
@@ -165,7 +166,7 @@ class _AnimatedActivityCardState extends State<AnimatedActivityCard> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -194,7 +195,7 @@ class _AnimatedActivityCardState extends State<AnimatedActivityCard> {
                   Text(
                     widget.description,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                       fontSize: 12, // Tamaño de fuente reducido
                       height: 1.2,
                     ),

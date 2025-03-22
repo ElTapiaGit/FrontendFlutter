@@ -9,6 +9,7 @@ class UserListPage extends StatefulWidget {
   const UserListPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserListPageState createState() => _UserListPageState();
 }
 
@@ -74,7 +75,7 @@ class _UserListPageState extends State<UserListPage> {
               onChanged: _filterUsers,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white.withOpacity(0.2),
+                fillColor: Colors.white.withValues(alpha: 0.2),
                 hintText: "Buscar",
                 hintStyle: TextStyle(color: Colors.white),
                 prefixIcon: Icon(Icons.search, color: Colors.white),
@@ -112,7 +113,7 @@ class _UserListPageState extends State<UserListPage> {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.white.withOpacity(0.3),
+                              backgroundColor: Colors.white.withValues(alpha: 0.3),
                               child: Icon(Icons.person, color: Colors.white),
                             ),
                             SizedBox(width: 10),
@@ -144,7 +145,7 @@ class _UserListPageState extends State<UserListPage> {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: color.withOpacity(0.8),
+          color: color.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.all(6),
@@ -154,7 +155,7 @@ class _UserListPageState extends State<UserListPage> {
   }
   void _matricularUser(UserModel user) async {
     try {
-      if (user.id == null || user.id!.isEmpty) {
+      if (user.id.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("ID de usuario no válido")),
         );
@@ -165,7 +166,7 @@ class _UserListPageState extends State<UserListPage> {
       print("ID del usuario: ${user.id}");
 
       // Crear una instancia de EnrolRequest con el ID del usuario
-      EnrolRequest enrolRequest = EnrolRequest(studentId: user.id!);
+      EnrolRequest enrolRequest = EnrolRequest(studentId: user.id);
 
       print("JSON enviado: ${enrolRequest.toJson()}");
 
@@ -178,7 +179,7 @@ class _UserListPageState extends State<UserListPage> {
     } catch (e) {
       String errorMessage = "Error desconocido: $e";
 
-      if (e is DioError) {
+      if (e is DioException) {
         print("Error en la API: ${e.response?.data}");
 
         if (e.response != null && e.response!.data != null) {

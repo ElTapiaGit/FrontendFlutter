@@ -3,6 +3,7 @@ import '../../constants/theme.dart';
 import 'package:dio/dio.dart';
 import 'package:iuapp/data/api/api_service.dart';
 import 'package:iuapp/data/models/EnrollmentResponse.dart';
+import 'package:iuapp/data/models/progress_model.dart';
 
 class AssignRoutinePage extends StatefulWidget {
   const AssignRoutinePage({super.key});
@@ -33,6 +34,7 @@ class _AssignRoutinePageState extends State<AssignRoutinePage> {
       setState(() {
         students = response.enrollments
             .map((enrollment) => enrollment.student!)
+            .whereType<Student>() // Filtra nulos y asegura el tipo correcto
             .toList();
         filteredStudents = students;
         isLoading = false;
@@ -58,6 +60,8 @@ class _AssignRoutinePageState extends State<AssignRoutinePage> {
   }
 
   //aquí se enviará la solicitud a la API
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +210,7 @@ Widget _actionButton(IconData icon, Color color, VoidCallback onTap) {
     TextEditingController alturaController = TextEditingController();
     String nivelActividad = "Sedentario"; 
     String objetivo = "Perder peso"; 
-     final _formKey = GlobalKey<FormState>(); // Clave para el formulario
+    final formKey = GlobalKey<FormState>(); // Clave para el formulario
 
     showDialog(
       context: context,
@@ -223,7 +227,7 @@ Widget _actionButton(IconData icon, Color color, VoidCallback onTap) {
           content: StatefulBuilder(
             builder: (context, setState) {
               return Form(
-                key: _formKey, // Asigna el FormKey
+                key: formKey, // Asigna el FormKey
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -322,14 +326,28 @@ Widget _actionButton(IconData icon, Color color, VoidCallback onTap) {
                     // Botón Asignar
                     ElevatedButton(
                       onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          print("ID del estudiante: ${student.id}");
-                          print("Asignar peso a: ${student.nombres} ${student.apellidoPa}");
-                          print("Peso: ${pesoController.text} kg");
-                          print("Altura: ${alturaController.text} cm");
-                          print("Nivel de actividad: $nivelActividad");
-                          print("Objetivo: $objetivo");
-                          Navigator.pop(context);
+                        if (formKey.currentState!.validate()) {
+                          try {
+                            final progress = ProgressRequest(
+                              studentId: student.id,
+                              weight: double.parse(pesoController.text),
+                              height: double.parse(alturaController.text),
+                              activityLevels: nivelActividad,
+                              objectives: objetivo,
+                            );
+
+                            await apiService.createProgress(progress);
+                            
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Progreso registrado con éxito")),
+                            );
+
+                            Navigator.pop(context);
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Error al registrar el progreso: $e")),
+                            );
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(
