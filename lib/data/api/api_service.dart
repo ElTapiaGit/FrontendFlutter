@@ -10,9 +10,10 @@ import 'package:iuapp/data/models/EnrollmentResponse.dart';
 import 'package:iuapp/data/models/enrol_request.dart';
 import 'package:iuapp/data/models/role_response.dart';
 import '../models/progress_model.dart';
+import '../models/progressHistorial.dart';
 
 part 'api_service.g.dart';
-@RestApi(baseUrl: "http://localhost:9000/api")
+@RestApi(baseUrl: "https://the-oliver-practices-fighter.trycloudflare.com/api")
 abstract class ApiService {
   factory ApiService(Dio dio) {
     dio.interceptors.add(TokenInterceptor()); // Agrega el interceptor aquí
@@ -48,4 +49,10 @@ abstract class ApiService {
   //prueba de enpoint elTapia
   @POST("/progress")
   Future<void> createProgress(@Body() ProgressRequest progress);
+
+  //crear dos GET una para el instructor y alumno
+
+  //crear Get para si como instructor quiero ver solo el historial de un alumno
+  //@GET("/progress/{idstudent}")
+  //Future<void> progressHistorial(@Body() ProgressRequest progress);
 }

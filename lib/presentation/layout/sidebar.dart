@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/theme.dart'; // Archivo opcional para colores
 
 
@@ -13,6 +14,21 @@ class Sidebar extends StatefulWidget {
 class _SidebarState extends State<Sidebar> {
   // ignore: unused_field
   String _selectedRoute = '/'; // Ruta inicial
+  String _userName = 'Usuario';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  // Método para cargar el nombre del usuario desde SharedPreferences
+  Future<void> _loadUserName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('user_name') ?? 'Usuario';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +47,8 @@ class _SidebarState extends State<Sidebar> {
                   Image.asset('assets/logo.png', width: 70, height: 70),
                   const SizedBox(height: 10),
                   // Nombre de usuario
-                  const Text(
-                    "User Name Fast",
+                  Text(
+                    _userName,
                     style: TextStyle(color: AppColors.textWhite, fontSize: 16),
                   ),
                 ],

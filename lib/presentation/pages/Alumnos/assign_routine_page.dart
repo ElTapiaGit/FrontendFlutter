@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:iuapp/data/api/api_service.dart';
 import 'package:iuapp/data/models/EnrollmentResponse.dart';
 import 'package:iuapp/data/models/progress_model.dart';
+import 'studentHistorial.dart';
 
 class AssignRoutinePage extends StatefulWidget {
   const AssignRoutinePage({super.key});
@@ -60,8 +61,14 @@ class _AssignRoutinePageState extends State<AssignRoutinePage> {
   }
 
   //aquí se enviará la solicitud a la API
-
-
+  void _verHistoria(Student student) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StudentHistoryPage(student: student), // Cambié 'user' por 'student'
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +142,8 @@ class _AssignRoutinePageState extends State<AssignRoutinePage> {
                                   _actionButton(Icons.fitness_center, Colors.blue, () => _mostrarModalRutina(student)),
                                   SizedBox(width: 8),
                                   _actionButton(Icons.history, Colors.orange, () => _mostrarModalPeso(student)),
+                                  SizedBox(width: 8),
+                                  _actionButton(Icons.history_edu, Colors.blue, () => _verHistoria(student)), 
                                 ],
                               ),
                             ],
@@ -257,7 +266,7 @@ Widget _actionButton(IconData icon, Color color, VoidCallback onTap) {
                       controller: alturaController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: "Ingrese su altura (Cm)",
+                        labelText: "Ingrese su altura (m)",
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       ),
                       validator: (value) {

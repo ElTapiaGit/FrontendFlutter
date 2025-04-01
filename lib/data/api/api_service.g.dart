@@ -10,7 +10,8 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://localhost:9000/api';
+    baseUrl ??=
+        'https://the-oliver-practices-fighter.trycloudflare.com/api';
   }
 
   final Dio _dio;

@@ -21,5 +21,5 @@ Map<String, dynamic> _$ProgressToJson(ProgressRequest instance) => <String, dyna
       'height': instance.height,
       'activityLevels': instance.activityLevels,
       //'date': instance.date,
-      'objectives': instance.objectives,
-    };
+      'objectives': instance.objectives    
+      };
