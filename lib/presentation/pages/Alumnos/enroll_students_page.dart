@@ -57,12 +57,12 @@ class _UserListPageState extends State<UserListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backroundGradient.colors.first,
+      backgroundColor: const Color.fromARGB(255, 15, 111, 245) .withValues(alpha: 0.8),
       appBar: AppBar(
         title: Text("Lista de usuarios",
-            style: TextStyle(color: AppColors.textWhite, fontSize: 20, fontWeight: FontWeight.bold)),
+            style: TextStyle(color: const Color.fromARGB(255, 255, 254, 254), fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -75,7 +75,7 @@ class _UserListPageState extends State<UserListPage> {
               onChanged: _filterUsers,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white.withValues(alpha: 0.2),
+                fillColor: const Color.fromARGB(0, 0, 0, 0).withValues(alpha: 0.2),
                 hintText: "Buscar",
                 hintStyle: TextStyle(color: Colors.white),
                 prefixIcon: Icon(Icons.search, color: Colors.white),
@@ -100,7 +100,7 @@ class _UserListPageState extends State<UserListPage> {
               child: isLoading
                   ? Center(child: CircularProgressIndicator())
                   : filteredUsers.isEmpty
-                  ? Center(child: Text("No se encontraron usuarios", style: TextStyle(color: Colors.white)))
+                  ? Center(child: Text("No se encontraron usuarios", style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255))))
                   : ListView.builder(
                 itemCount: filteredUsers.length,
                 itemBuilder: (context, index) {
@@ -125,7 +125,7 @@ class _UserListPageState extends State<UserListPage> {
                         ),
                         Row(
                           children: [
-                            _actionButton(Icons.person, Colors.green, () => _matricularUser(user)),
+                            _actionButton(Icons.person, const Color.fromARGB(255, 41, 254, 48), () => _matricularUser(user)),
                           ],
                         ),
                       ],
@@ -149,7 +149,7 @@ class _UserListPageState extends State<UserListPage> {
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.all(6),
-        child: Icon(icon, color: Colors.white, size: 18),
+        child: Icon(icon, color: const Color.fromARGB(255, 255, 255, 255), size: 18),
       ),
     );
   }

@@ -4,6 +4,7 @@ import '../../constants/theme.dart';
 import 'package:iuapp/data/api/api_service.dart';
 import 'package:iuapp/data/models/role_model.dart'as role;
 import 'package:iuapp/data/models/user_model.dart';
+import 'package:iuapp/presentation/layout/sidebar.dart';
 
 class UserListPage extends StatefulWidget {
   const UserListPage({super.key});
@@ -53,18 +54,20 @@ class _UserListPageState extends State<UserListPage> {
       }).toList();
     });
   }
-
+ 
   @override
   Widget build(BuildContext context) {    
     return Scaffold(
-      backgroundColor: AppColors.backroundGradient.colors.first,
+      drawer: const Sidebar(), // Agregamos el sidebar
+      backgroundColor: const Color.fromARGB(255, 40, 187, 255),
       appBar: AppBar(
+        titleSpacing: 0,
         title: Text("Lista de usuarios",
             style: TextStyle(color: AppColors.textWhite, fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -133,10 +136,10 @@ class _UserListPageState extends State<UserListPage> {
                         // Botones de acción
                         Row(
                           children: [
-                            _actionButton(Icons.update, Colors.blue,
+                            _actionButton(Icons.update, const Color.fromARGB(255, 21, 51, 246),
                                     () => _showUpdateModal(context, user)),
                             SizedBox(width: 8),
-                            _actionButton(Icons.info, Colors.grey,
+                            _actionButton(Icons.info, const Color.fromARGB(255, 247, 146, 24),
                                     () => _showUserInfo(context, user)),
                             SizedBox(width: 8),
                             _actionButton(Icons.delete, Colors.red,
@@ -165,7 +168,7 @@ class _UserListPageState extends State<UserListPage> {
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.all(6),
-        child: Icon(icon, color: Colors.white, size: 18),
+        child: Icon(icon, color: const Color.fromARGB(255, 255, 255, 255), size: 18),
       ),
     );
   }
@@ -218,7 +221,7 @@ class _UserListPageState extends State<UserListPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Usuario eliminado exitosamente"),
-              backgroundColor:  Colors.blueGrey[800],
+              backgroundColor:  const Color.fromARGB(255, 65, 63, 63),
             ),
           );
         }

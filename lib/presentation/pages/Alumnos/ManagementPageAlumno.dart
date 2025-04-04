@@ -46,7 +46,7 @@ class ManagementPage extends StatelessWidget {
                           title: 'MATRICULAR ALUMNOS',
                           description: 'Registro de nuevos estudiantes',
                           gradient: LinearGradient(
-                            colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+                            colors: [Color.fromARGB(255, 240, 18, 18), Color.fromARGB(255, 249, 64, 196)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -57,7 +57,7 @@ class ManagementPage extends StatelessWidget {
                           title: 'ASIGNAR RUTINA',
                           description: 'Crear planes de entrenamiento',
                           gradient: LinearGradient(
-                            colors: [Color(0xFF10B981), Color(0xFF059669)],
+                            colors: [Color.fromARGB(255, 12, 179, 62), Color.fromARGB(255, 32, 238, 39)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -68,7 +68,7 @@ class ManagementPage extends StatelessWidget {
                           title: 'ASIGNAR DIETA',
                           description: 'Planes nutricionales personalizados',
                           gradient: LinearGradient(
-                            colors: [Color(0xFFF59E0B), Color(0xFFD97706)],
+                            colors: [Color(0xFFF59E0B), Color.fromARGB(255, 250, 232, 67)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -79,7 +79,7 @@ class ManagementPage extends StatelessWidget {
                           title: 'RECOMENDACIONES',
                           description: 'Consejos personalizados',
                           gradient: LinearGradient(
-                            colors: [Color(0xFF3B82F6), Color(0xFF2563EB)],
+                            colors: [Color.fromARGB(255, 20, 107, 246), Color.fromARGB(255, 39, 214, 245)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),

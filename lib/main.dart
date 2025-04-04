@@ -16,7 +16,7 @@ import 'presentation/pages/personal_plan.dart';
 import 'presentation/pages/rutina_ejercicio.dart';
 import 'presentation/pages/objetivos.dart';
 import 'presentation/pages/masa_muscular.dart';
-
+import 'package:animations/animations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 void main() {
   runApp(const MainApp());

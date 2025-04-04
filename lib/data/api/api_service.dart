@@ -13,7 +13,7 @@ import '../models/progress_model.dart';
 import '../models/progressHistorial.dart';
 
 part 'api_service.g.dart';
-@RestApi(baseUrl: "https://the-oliver-practices-fighter.trycloudflare.com/api")
+@RestApi(baseUrl: "https://comparisons-units-senior-division.trycloudflare.com/api")
 abstract class ApiService {
   factory ApiService(Dio dio) {
     dio.interceptors.add(TokenInterceptor()); // Agrega el interceptor aquí

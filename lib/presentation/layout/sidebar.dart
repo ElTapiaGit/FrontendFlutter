@@ -93,7 +93,7 @@ class _SidebarState extends State<Sidebar> {
                   end: Alignment.centerRight,
                   colors: [
                     Color(0xFF045FF3), // Azul a la izquierda
-                    Color(0x4FFFFFFF), // Blanco a la derecha
+                    Color.fromARGB(255, 255, 11, 231), // Blanco a la derecha
                   ],
                   stops: const [0.0, 1.0],
                 ),
