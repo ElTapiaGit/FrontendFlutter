@@ -11,9 +11,12 @@ import 'package:iuapp/data/models/enrol_request.dart';
 import 'package:iuapp/data/models/role_response.dart';
 import '../models/progress_model.dart';
 import '../models/progressHistorial.dart';
+import '../models/meal_plan.dart';
 
 part 'api_service.g.dart';
-@RestApi(baseUrl: "https://comparisons-units-senior-division.trycloudflare.com/api")
+
+@RestApi(baseUrl: "https://healthy-ins-bingo-scholarships.trycloudflare.com/api")
+
 abstract class ApiService {
   factory ApiService(Dio dio) {
     dio.interceptors.add(TokenInterceptor()); // Agrega el interceptor aquí
@@ -55,4 +58,8 @@ abstract class ApiService {
   //crear Get para si como instructor quiero ver solo el historial de un alumno
   //@GET("/progress/{idstudent}")
   //Future<void> progressHistorial(@Body() ProgressRequest progress);
+
+  //para el plan de alimentacion
+  @POST("/mealplans")
+  Future<void> createMealPlan(@Body() MealPlan mealPlan);
 }

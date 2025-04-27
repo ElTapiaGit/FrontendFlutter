@@ -3,6 +3,7 @@ import '../../layout/sidebar.dart';
 import '../../constants/theme.dart';
 import 'enroll_students_page.dart';
 import 'assign_routine_page.dart';
+import 'assign_diet_page.dart';
 
 class ManagementPage extends StatelessWidget {
   const ManagementPage({super.key});
@@ -232,18 +233,6 @@ class AssignRoutinePage2 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Asignar Rutina')),
       body: const Center(child: Text('Selector de rutinas aquí')),
-    );
-  }
-}
-
-class AssignDietPage extends StatelessWidget {
-  const AssignDietPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Asignar Dieta')),
-      body: const Center(child: Text('Editor de planes nutricionales aquí')),
     );
   }
 }

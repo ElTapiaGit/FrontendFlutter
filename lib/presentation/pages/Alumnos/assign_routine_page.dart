@@ -65,7 +65,7 @@ class _AssignRoutinePageState extends State<AssignRoutinePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => StudentHistoryPage(student: student), // Cambié 'user' por 'student'
+        builder: (context) => StudentHistoryPage(student: student), 
       ),
     );
   }

@@ -10,8 +10,7 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??=
-        'https://comparisons-units-senior-division.trycloudflare.com/api';
+    baseUrl ??= 'https://healthy-ins-bingo-scholarships.trycloudflare.com/api';
   }
 
   final Dio _dio;
@@ -223,6 +222,26 @@ class _ApiService implements ApiService {
           .compose(
             _dio.options,
             '/progress',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<void> createMealPlan(MealPlan mealPlan) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(mealPlan.toJson());
+    final _options = _setStreamType<void>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/mealplans',
             queryParameters: queryParameters,
             data: _data,
           )
