@@ -200,19 +200,20 @@ class _AssignDietPageState extends State<AssignDietPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildTextField(startDateController, "Fecha de Inicio (YYYY-MM-DD)"),
+                _buildTextField(startDateController, "Fecha de Inicio (YY-MM-DD)", isDate: true),
                 _buildTextField(breakfastController, "Desayuno (separa con coma)"),
-                _buildTextField(breakfastReminderTimeController, "Recordatorio Desayuno (HH:MM)"),
+                _buildTimeField(breakfastReminderTimeController, "Recordatorio Desayuno (HH:MM)"),
                 _buildTextField(snackMorningController, "Snack Mañana (separa con coma)"),
                 _buildTextField(lunchController, "Almuerzo (separa con coma)"),
-                _buildTextField(lunchReminderTimeController, "Recordatorio Almuerzo (HH:MM)"),
+                _buildTimeField(lunchReminderTimeController, "Recordatorio Almuerzo (HH:MM)"),
                 _buildTextField(snackAfternoonController, "Snack Tarde (separa con coma)"),
                 _buildTextField(dinnerController, "Cena (separa con coma)"),
-                _buildTextField(dinnerReminderTimeController, "Recordatorio Cena (HH:MM)"),
-                _buildTextField(hydrationLitersController, "Litros Recomendados"),
-                _buildTextField(hydrationReminderTimeController, "Recordatorio Hidratación (HH:MM)"),
+                _buildTimeField(dinnerReminderTimeController, "Recordatorio Cena (HH:MM)"),
+                _buildTextField(hydrationLitersController, "Litros Recomendados", isDecimal: true),
+                _buildTimeField(hydrationReminderTimeController, "Recordatorio Hidratación (HH:MM)"),
                 _buildTextField(recommendationsController, "Recomendaciones"),
                 _buildTextField(supplementRecommendationsController, "Recomendaciones Suplementos"),
+                
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
@@ -268,7 +269,56 @@ class _AssignDietPageState extends State<AssignDietPage> {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label) {
+  Widget _buildTextField(TextEditingController controller, String label, {bool isDate = false, bool isDecimal = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: isDecimal ? TextInputType.numberWithOptions(decimal: true) : null,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          suffixIcon: isDate ? Icon(Icons.calendar_today, color: Colors.black) : null,
+        ),
+        style: TextStyle(color: Colors.black),
+        readOnly: isDate, // Solo es "readOnly" si es un campo de fecha
+        onTap: isDate
+          ? () async {
+              DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1900),
+                lastDate: DateTime.now(),
+                locale: const Locale('es', 'ES'),
+              );
+              if (pickedDate != null) {
+                setState(() {
+                  controller.text = "${pickedDate.toLocal()}".split(' ')[0]; // Formato YYYY-MM-DD
+                });
+              }
+            }
+          : null,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Campo requerido';
+          }
+
+          // Validación de hora en formato HH:MM (24 horas)
+          if (isDate && !RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(value)) {
+            return 'Formato de fecha incorrecto (YY-MM-DD)';
+          }
+
+          if (isDecimal && !RegExp(r'^\d+(\.\d+)?$').hasMatch(value)) {
+            return 'Ingresa un número válido (ej. 1.5)';
+          }
+
+          return null;
+        },
+      ),
+    );
+  }
+  // Función para el selector de hora
+  Widget _buildTimeField(TextEditingController controller, String label) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: TextFormField(
@@ -276,10 +326,38 @@ class _AssignDietPageState extends State<AssignDietPage> {
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          suffixIcon: Icon(Icons.access_time, color: Colors.black),
         ),
+        style: TextStyle(color: Colors.black),
+        readOnly: true,
+        onTap: () async {
+          TimeOfDay? pickedTime = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                child: child!,
+              );
+            },
+          );
+
+          if (pickedTime != null) {
+            final String formatted = pickedTime.hour.toString().padLeft(2, '0') +
+              ':' +
+              pickedTime.minute.toString().padLeft(2, '0');
+            setState(() {
+              controller.text = formatted;
+            });
+          }
+        },
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Campo requerido';
+          }
+          // Validación básica de formato HH:MM (24 horas)
+          if (!RegExp(r'^\d{2}:\d{2}$').hasMatch(value)) {
+            return 'Formato de hora incorrecto (HH:MM)';
           }
           return null;
         },

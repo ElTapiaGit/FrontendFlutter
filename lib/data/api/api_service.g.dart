@@ -10,7 +10,7 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://healthy-ins-bingo-scholarships.trycloudflare.com/api';
+    baseUrl ??= 'https://season-savings-parallel-theology.trycloudflare.com/api';
   }
 
   final Dio _dio;

@@ -15,7 +15,7 @@ import '../models/meal_plan.dart';
 
 part 'api_service.g.dart';
 
-@RestApi(baseUrl: "https://healthy-ins-bingo-scholarships.trycloudflare.com/api")
+@RestApi(baseUrl: "https://season-savings-parallel-theology.trycloudflare.com/api")
 
 abstract class ApiService {
   factory ApiService(Dio dio) {
