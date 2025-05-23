@@ -57,17 +57,19 @@ class _UserListPageState extends State<UserListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 15, 111, 245) .withValues(alpha: 0.8),
       appBar: AppBar(
         title: Text("Lista de usuarios",
             style: TextStyle(color: const Color.fromARGB(255, 255, 254, 254), fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-        elevation: 0,
+        backgroundColor: AppColors.backroundGradient.colors[0],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.backroundGradient,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
@@ -137,6 +139,7 @@ class _UserListPageState extends State<UserListPage> {
           ],
         ),
       ),
+    )
     );
   }
 

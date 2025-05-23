@@ -73,17 +73,19 @@ class _AssignRoutinePageState extends State<AssignRoutinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backroundGradient.colors.first,
       appBar: AppBar(
         title: Text("Lista de Alumnos Matriculados",
             style: TextStyle(color: AppColors.textWhite, fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: AppColors.backroundGradient.colors[0],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.backroundGradient,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
@@ -155,6 +157,7 @@ class _AssignRoutinePageState extends State<AssignRoutinePage> {
           ],
         ),
       ),
+    )
     );
   }
 Widget _actionButton(IconData icon, Color color, VoidCallback onTap) {

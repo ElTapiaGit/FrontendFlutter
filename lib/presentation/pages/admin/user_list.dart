@@ -59,18 +59,19 @@ class _UserListPageState extends State<UserListPage> {
   Widget build(BuildContext context) {    
     return Scaffold(
       drawer: const Sidebar(), // Agregamos el sidebar
-      backgroundColor: const Color.fromARGB(255, 40, 187, 255),
       appBar: AppBar(
         titleSpacing: 0,
         title: Text("Lista de usuarios",
             style: TextStyle(color: AppColors.textWhite, fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-        elevation: 0,
-        
+        backgroundColor: AppColors.backroundGradient.colors[0],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.backroundGradient,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             // Campo de búsqueda
@@ -139,7 +140,7 @@ class _UserListPageState extends State<UserListPage> {
                             _actionButton(Icons.update, const Color.fromARGB(255, 21, 51, 246),
                                     () => _showUpdateModal(context, user)),
                             SizedBox(width: 8),
-                            _actionButton(Icons.info, const Color.fromARGB(255, 247, 146, 24),
+                            _actionButton(Icons.info, const Color.fromARGB(255, 254, 137, 4),
                                     () => _showUserInfo(context, user)),
                             SizedBox(width: 8),
                             _actionButton(Icons.delete, Colors.red,
@@ -155,6 +156,7 @@ class _UserListPageState extends State<UserListPage> {
           ],
         ),
       ),
+    )
     );
   }
 
@@ -202,7 +204,7 @@ class _UserListPageState extends State<UserListPage> {
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             child: Text("Eliminar",
-                style: TextStyle(color: Colors.red)),
+                style: TextStyle(color: const Color.fromARGB(255, 230, 23, 233))),
           ),
         ],
       ),
@@ -230,7 +232,7 @@ class _UserListPageState extends State<UserListPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Error al eliminar: ${e.toString()}"),
-              backgroundColor: Colors.red,
+              backgroundColor: const Color.fromARGB(255, 244, 54, 222),
             ),
           );
         }
@@ -269,11 +271,12 @@ class _UserListPageState extends State<UserListPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        backgroundColor: AppColors.backroundGradient.colors.first,
         title: Center(
-          child: Text("Detalle del usuario",
+          child: Text("Detalle del usuario" ,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.blueGrey[800],
+                color: const Color.fromARGB(255, 246, 245, 245),
               )),
         ),
         content: SingleChildScrollView(
@@ -281,7 +284,7 @@ class _UserListPageState extends State<UserListPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildInfoRow("Nombre:", "${user.nombres} ${user.apellidoPa}"),
+              _buildInfoRow("Nombre:" , "${user.nombres} ${user.apellidoPa}"),
               _buildInfoRow("Correo:", user.correo ?? "Sin correo"),
               if (user.rol != null)
                 _buildInfoRow("Rol:", user.rol!.name),
@@ -295,7 +298,7 @@ class _UserListPageState extends State<UserListPage> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text("Cerrar",
-                style: TextStyle(color:Colors.blue)),
+                style: TextStyle(color:const Color.fromARGB(255, 243, 33, 205))),
           ),
         ],
       ),
@@ -368,8 +371,12 @@ class _RoleAssignmentDialogState extends State<RoleAssignmentDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: AppColors.backroundGradient.colors.first,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       title: Center(
-        child: Text("Asignar un rol", style: TextStyle(fontWeight: FontWeight.bold)),
+        child: Text("Asignar un rol", style: TextStyle(color: AppColors.textWhite, fontSize: 20, fontWeight: FontWeight.bold)),
       ),
       content: Stack(
         alignment: Alignment.center,
@@ -390,7 +397,7 @@ class _RoleAssignmentDialogState extends State<RoleAssignmentDialog> {
                         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       ),
                       value: selectedRole,
-                      hint: Text("Seleccionar un rol"),
+                      hint: Text("Seleccionar un rol", style: TextStyle(color: AppColors.textWhite, fontSize: 15, fontWeight: FontWeight.bold)),
                       items: roles.map((role) {
                         return DropdownMenuItem(
                           value: role.id.toString(),
@@ -408,7 +415,7 @@ class _RoleAssignmentDialogState extends State<RoleAssignmentDialog> {
                     ElevatedButton(
                       onPressed: _assignRole,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: const Color.fromARGB(255, 235, 33, 239),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                       ),
                       child: Text("Asignar", style: TextStyle(color: Colors.white)),

@@ -96,7 +96,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Inicio de sesión',
+                  'INICIO DE SESIÓN',
                   style: TextStyle(
                     color: AppColors.textWhite,
                     fontSize: 30.0,
@@ -236,22 +236,26 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           width: 300,
                           height: 40,
                           decoration: BoxDecoration(
-                            gradient: _isPressed
-                                ? AppColors.secondaryButtonGradient
-                                : LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                            gradient: AppColors.primaryButtonGradient,
                             borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(color: Colors.white, width: 1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                offset: Offset(0, 4),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                              ),
+                            ],
                           ),
                           alignment: Alignment.center,
                           child: Text(
                             'Registrarse',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
                         ),
-                      ),
+                      SizedBox(height: 20),
+                      // Botón de registrarse
                     ],
                   ),
                 ),
