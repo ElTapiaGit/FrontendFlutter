@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../data/models/meal_plan_create.dart';
 import '../../constants/theme.dart';
 import 'package:dio/dio.dart';
 import 'package:iuapp/data/api/api_service.dart';
 import 'package:iuapp/data/models/EnrollmentResponse.dart';
-import 'package:iuapp/data/models/meal_plan.dart';
-import 'studentHistorial.dart';
+import 'package:iuapp/data/models/mealPlanHistory.dart';
+
+import 'history_diet.dart';
 
 class AssignDietPage extends StatefulWidget {
   const AssignDietPage({super.key});
@@ -62,13 +64,14 @@ class _AssignDietPageState extends State<AssignDietPage> {
 
   //aquí se enviará la solicitud a la API
   void _verHistoria(Student student) {
-    Navigator.push(
-      context,
+  Navigator.push(
+    context,
       MaterialPageRoute(
-        builder: (context) => StudentHistoryPage(student: student),
+        builder: (context) => HistoryDietPage(student: student),
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +144,7 @@ class _AssignDietPageState extends State<AssignDietPage> {
                                 children: [
                                   _actionButton(Icons.restaurant_menu, Colors.green, () => _mostrarModalAsignarDieta(student)),
                                   SizedBox(width: 8),
-                                  _actionButton(Icons.receipt_long, Colors.orange, () => _verHistoria(student)), 
+                                  _actionButton(Icons.receipt_long, Colors.orange, () => _verHistoria(student)), //accion para ir pagina de historial de dietas del estudiante
                                 ],
                               ),
                             ],
@@ -218,30 +221,36 @@ class _AssignDietPageState extends State<AssignDietPage> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      final mealPlan = MealPlan(
+                      final nuevaDieta = MealPlanCreate(
                         studentId: student.id,
                         startDate: startDateController.text,
                         breakfast: breakfastController.text.split(',').map((e) => e.trim()).toList(),
                         breakfastReminderTime: breakfastReminderTimeController.text,
-                        snackMorning: snackMorningController.text.split(',').map((e) => e.trim()).toList(),
+                        snackMorning: snackMorningController.text.trim().isEmpty
+                          ? null
+                          : snackMorningController.text.split(',').map((e) => e.trim()).toList(),
+
                         lunch: lunchController.text.split(',').map((e) => e.trim()).toList(),
                         lunchReminderTime: lunchReminderTimeController.text,
-                        snackAfternoon: snackAfternoonController.text.split(',').map((e) => e.trim()).toList(),
+                        snackAfternoon: snackAfternoonController.text.trim().isEmpty
+                          ? null
+                          : snackAfternoonController.text.split(',').map((e) => e.trim()).toList(),
+
                         dinner: dinnerController.text.split(',').map((e) => e.trim()).toList(),
                         dinnerReminderTime: dinnerReminderTimeController.text,
-                        hydration: Hydration(
+                        hydration: HydrationCreate(
                           recommendedLiters: double.tryParse(hydrationLitersController.text) ?? 0,
                           reminderTime: hydrationReminderTimeController.text,
                         ),
                         recommendations: recommendationsController.text,
                         supplementRecommendations: supplementRecommendationsController.text,
                       );
-
+                      print(nuevaDieta.toJson()); // Para depuración y verificar que se esta mandando
                       final dio = Dio();
                       final apiService = ApiService(dio);
 
                       try {
-                        await apiService.createMealPlan(mealPlan);
+                        await apiService.createMealPlan(nuevaDieta);
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Dieta asignada exitosamente')),
@@ -293,7 +302,7 @@ class _AssignDietPageState extends State<AssignDietPage> {
               );
               if (pickedDate != null) {
                 setState(() {
-                  controller.text = "${pickedDate.toLocal()}".split(' ')[0]; // Formato YYYY-MM-DD
+                  controller.text = "${pickedDate.toLocal()}".split(' ')[0]; // Formato YY-MM-DD
                 });
               }
             }

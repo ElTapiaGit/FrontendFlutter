@@ -282,7 +282,7 @@ class _UserListPageState extends State<UserListPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildInfoRow("Nombre:", "${user.nombres} ${user.apellidoPa}"),
-              _buildInfoRow("Correo:", user.correo ?? "Sin correo"),
+              _buildInfoRow("Correo:", user.correo),
               if (user.rol != null)
                 _buildInfoRow("Rol:", user.rol!.name),
               // Agrega más campos según tu UserModel:

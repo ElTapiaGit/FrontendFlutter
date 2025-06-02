@@ -1,35 +1,43 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'meal_plan.dart';
+part of 'mealPlanHistory.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
 MealPlan _$MealPlanFromJson(Map<String, dynamic> json) => MealPlan(
-      studentId: json['studentId'] as String,
-      startDate: json['startDate'] as String,
-      breakfast:
-          (json['breakfast'] as List<dynamic>).map((e) => e as String).toList(),
+      studentId: json['student'] as String,
+      startDate: json['startDate'] as String?,
+      breakfast: (json['breakfast'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
       breakfastReminderTime: json['breakfastReminderTime'] as String,
       snackMorning: (json['snackMorning'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      lunch: (json['lunch'] as List<dynamic>).map((e) => e as String).toList(),
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      lunch:
+          (json['lunch'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              [],
       lunchReminderTime: json['lunchReminderTime'] as String,
       snackAfternoon: (json['snackAfternoon'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      dinner:
-          (json['dinner'] as List<dynamic>).map((e) => e as String).toList(),
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      dinner: (json['dinner'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
       dinnerReminderTime: json['dinnerReminderTime'] as String,
       hydration: Hydration.fromJson(json['hydration'] as Map<String, dynamic>),
-      recommendations: json['recommendations'] as String,
+      recommendations: json['recommendations'] as String?,
       supplementRecommendations: json['supplementRecommendations'] as String?,
     );
 
 Map<String, dynamic> _$MealPlanToJson(MealPlan instance) => <String, dynamic>{
-      'studentId': instance.studentId,
+      'student': instance.studentId,
       'startDate': instance.startDate,
       'breakfast': instance.breakfast,
       'breakfastReminderTime': instance.breakfastReminderTime,

@@ -23,9 +23,8 @@ class ProgressRequest {
   });
 
   // Método que genera un objeto Progress desde JSON
-  factory ProgressRequest.fromJson(Map<String, dynamic> json) => _$ProgressFromJson(json);
-
+  factory ProgressRequest.fromJson(Map<String, dynamic> json) => _$ProgressRequestFromJson(json);
   // Método que convierte un objeto Progress a JSON
-  Map<String, dynamic> toJson() => _$ProgressToJson(this);
+  Map<String, dynamic> toJson() => _$ProgressRequestToJson(this);
 }
   

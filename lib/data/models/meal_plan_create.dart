@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'meal_plan.g.dart';
+part 'meal_plan_create.g.dart';
 
 @JsonSerializable()
-class MealPlan {
+class MealPlanCreate {
   final String studentId;
-  final String startDate;
+  final String? startDate;
   final List<String> breakfast;
   final String breakfastReminderTime;
   final List<String>? snackMorning;
@@ -14,13 +14,13 @@ class MealPlan {
   final List<String>? snackAfternoon;
   final List<String> dinner;
   final String dinnerReminderTime;
-  final Hydration hydration;
-  final String recommendations;
+  final HydrationCreate hydration;
+  final String? recommendations;
   final String? supplementRecommendations;
 
-  MealPlan({
+  MealPlanCreate({
     required this.studentId,
-    required this.startDate,
+    this.startDate,
     required this.breakfast,
     required this.breakfastReminderTime,
     this.snackMorning,
@@ -30,24 +30,26 @@ class MealPlan {
     required this.dinner,
     required this.dinnerReminderTime,
     required this.hydration,
-    required this.recommendations,
+    this.recommendations,
     this.supplementRecommendations,
   });
 
-  factory MealPlan.fromJson(Map<String, dynamic> json) => _$MealPlanFromJson(json);
-  Map<String, dynamic> toJson() => _$MealPlanToJson(this);
+  factory MealPlanCreate.fromJson(Map<String, dynamic> json) =>
+      _$MealPlanCreateFromJson(json);
+  Map<String, dynamic> toJson() => _$MealPlanCreateToJson(this);
 }
 
 @JsonSerializable()
-class Hydration {
+class HydrationCreate {
   final double recommendedLiters;
   final String reminderTime;
 
-  Hydration({
+  HydrationCreate({
     required this.recommendedLiters,
     required this.reminderTime,
   });
 
-  factory Hydration.fromJson(Map<String, dynamic> json) => _$HydrationFromJson(json);
-  Map<String, dynamic> toJson() => _$HydrationToJson(this);
+  factory HydrationCreate.fromJson(Map<String, dynamic> json) =>
+      _$HydrationCreateFromJson(json);
+  Map<String, dynamic> toJson() => _$HydrationCreateToJson(this);
 }

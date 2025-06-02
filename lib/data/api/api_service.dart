@@ -11,11 +11,12 @@ import 'package:iuapp/data/models/enrol_request.dart';
 import 'package:iuapp/data/models/role_response.dart';
 import '../models/progress_model.dart';
 import '../models/progressHistorial.dart';
-import '../models/meal_plan.dart';
+import '../models/meal_plan_create.dart';
+import '../models/meal_plan_response.dart';
 
 part 'api_service.g.dart';
 
-@RestApi(baseUrl: "https://season-savings-parallel-theology.trycloudflare.com/api")
+@RestApi(baseUrl: "https://phoenix-shepherd-jet-painful.trycloudflare.com/api")
 
 abstract class ApiService {
   factory ApiService(Dio dio) {
@@ -54,12 +55,13 @@ abstract class ApiService {
   Future<void> createProgress(@Body() ProgressRequest progress);
 
   //crear dos GET una para el instructor y alumno
-
-  //crear Get para si como instructor quiero ver solo el historial de un alumno
-  //@GET("/progress/{idstudent}")
-  //Future<void> progressHistorial(@Body() ProgressRequest progress);
+  @GET("/progress")
+  Future<ProgressResponse> getProgressHistory(@Query("studentId") String? studentId);
 
   //para el plan de alimentacion
   @POST("/mealplans")
-  Future<void> createMealPlan(@Body() MealPlan mealPlan);
+  Future<void> createMealPlan(@Body() MealPlanCreate mealPlan);
+  @GET("/mealplans/{id}")
+  Future<MealPlanResponse> getMealPlans(@Path("id") String studentId);
+
 }
